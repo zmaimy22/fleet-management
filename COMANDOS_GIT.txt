@@ -1,0 +1,52 @@
+# أوامر رفع المشروع على GitHub
+
+## الخطوة 1: تهيئة Git في المشروع
+cd C:\Users\aboja\CascadeProjects\fleet-management
+git init
+
+## الخطوة 2: إضافة جميع الملفات
+git add .
+
+## الخطوة 3: أول Commit
+git commit -m "Initial commit: Fleet Management System"
+
+## الخطوة 4: إنشاء Repository على GitHub
+# اذهب إلى: https://github.com/new
+# اسم Repository: fleet-management
+# Private أو Public: اختر ما تريد
+# لا تضع README أو .gitignore (لدينا بالفعل)
+# اضغط Create repository
+
+## الخطوة 5: ربط المشروع بـ GitHub
+# استبدل YOUR_USERNAME باسم المستخدم الخاص بك
+git remote add origin https://github.com/YOUR_USERNAME/fleet-management.git
+
+## الخطوة 6: رفع الملفات
+git branch -M main
+git push -u origin main
+
+## الخطوة 7: أدخل بياناتك
+# سيطلب منك:
+# Username: اسم المستخدم في GitHub
+# Password: Personal Access Token (ليس كلمة المرور العادية)
+
+## كيف تحصل على Personal Access Token:
+# 1. اذهب إلى: https://github.com/settings/tokens
+# 2. Generate new token (classic)
+# 3. Note: "Fleet Management"
+# 4. Expiration: 90 days
+# 5. Select scopes: ✓ repo
+# 6. Generate token
+# 7. انسخ Token (يظهر مرة واحدة فقط!)
+
+## تحديثات مستقبلية:
+# عندما تعدل الملفات:
+git add .
+git commit -m "وصف التعديلات"
+git push
+
+## رؤية الحالة:
+git status
+
+## رؤية السجل:
+git log --oneline

@@ -1,0 +1,351 @@
+export const translations = {
+  es: {
+    // Navbar
+    calendar: 'Calendario',
+    drivers: 'Conductores',
+    routes: 'Rutas',
+    stats: 'Estadísticas',
+    
+    // Calendar
+    downloadTemplate: 'Descargar Plantilla',
+    import: 'Importar',
+    generate: 'Generar 4/2',
+    driver: 'Conductor',
+    
+    // Legend
+    legend: 'Leyenda',
+    weekend: 'Fin de Semana',
+    annualLeave: 'Vacaciones (V)',
+    sickLeave: 'Baja Médica (Baja)',
+    loader: 'Cargador (CT/CM)',
+    route: 'Ruta',
+    
+    // Months
+    january: 'Enero',
+    february: 'Febrero',
+    march: 'Marzo',
+    april: 'Abril',
+    may: 'Mayo',
+    june: 'Junio',
+    july: 'Julio',
+    august: 'Agosto',
+    september: 'Septiembre',
+    october: 'Octubre',
+    november: 'Noviembre',
+    december: 'Diciembre',
+    
+    // Drivers
+    driversList: 'Lista de Conductores',
+    addDriver: 'Añadir Conductor',
+    editDriver: 'Editar Conductor',
+    edit: 'Editar',
+    delete: 'Eliminar',
+    search: 'Buscar conductor...',
+    noDriversFound: 'No se encontraron conductores',
+    
+    // Driver Types
+    driverType: 'Conductor',
+    loaderType: 'Cargador',
+    supervisorType: 'Supervisor',
+    
+    // Route Types
+    singleRoute: '1 Ruta',
+    twoRoutes: '2 Rutas',
+    multipleRoutes: '+2 Rutas',
+    
+    // Filters
+    all: 'Todos',
+    
+    // Driver Modal
+    fullName: 'Nombre Completo',
+    type: 'Tipo',
+    routeType: 'Tipo de Ruta',
+    singleFixedRoute: 'Ruta Fija Única',
+    twoRoutesOption: 'Dos Rutas',
+    multipleRoutesOption: 'Más de Dos Rutas',
+    assignedRoute: 'Ruta Asignada',
+    availableRoutes: 'Rutas Disponibles',
+    selectRoute: 'Seleccionar Ruta',
+    selected: 'Seleccionado',
+    routes: 'rutas',
+    save: 'Guardar',
+    cancel: 'Cancelar',
+    
+    // Routes
+    routesList: 'Lista de Rutas',
+    addRoute: 'Añadir Ruta',
+    editRoute: 'Editar Ruta',
+    routeCode: 'Código de Ruta',
+    truckPlate: 'Matrícula del Camión',
+    clients: 'Clientes',
+    addClient: 'Añadir Cliente',
+    client: 'Cliente',
+    
+    // Cell Edit Modal
+    editSchedule: 'Editar Horario',
+    day: 'Día',
+    value: 'Valor',
+    work: 'Trabajo',
+    vacation: 'Vacaciones',
+    sick: 'Baja Médica',
+    select: 'Seleccionar',
+    morning: 'Mañana',
+    evening: 'Tarde',
+    
+    // Stats
+    totalDrivers: 'Total Conductores',
+    loaders: 'Cargadores',
+    supervisors: 'Supervisores',
+    workingDays: 'Días Laborables',
+    annualLeaves: 'Vacaciones Anuales',
+    sickLeaves: 'Bajas Médicas',
+    
+    // Messages
+    worksAlways: 'Trabaja siempre en la misma ruta',
+    worksTwoRoutes: 'Trabaja en dos rutas diferentes',
+    worksMultiple: 'Trabaja en más de dos rutas',
+    deleteConfirm: '¿Quieres eliminar',
+    pleaseEnterName: 'Por favor ingresa el nombre del conductor',
+    pleaseEnterCode: 'Por favor ingresa el código de ruta',
+    pleaseEnterPlate: 'Por favor ingresa la matrícula',
+    pleaseAddClient: 'Por favor añade al menos un cliente',
+    
+    // Footer
+    allRightsReserved: 'Todos los derechos reservados',
+    fleetManagement: 'Sistema de Gestión de Flotas'
+  },
+  ar: {
+    // Navbar
+    calendar: 'التقويم',
+    drivers: 'السائقين',
+    routes: 'المسارات',
+    stats: 'الإحصائيات',
+    
+    // Calendar
+    downloadTemplate: 'تنزيل القالب',
+    import: 'استيراد',
+    generate: 'توليد 4/2',
+    driver: 'السائق',
+    
+    // Legend
+    legend: 'المفتاح',
+    weekend: 'عطلة أسبوعية',
+    annualLeave: 'عطلة سنوية (V)',
+    sickLeave: 'عطلة مرضية (Baja)',
+    loader: 'مسؤول الشحن (CT/CM)',
+    route: 'مسار عمل',
+    
+    // Months
+    january: 'يناير',
+    february: 'فبراير',
+    march: 'مارس',
+    april: 'أبريل',
+    may: 'مايو',
+    june: 'يونيو',
+    july: 'يوليو',
+    august: 'أغسطس',
+    september: 'سبتمبر',
+    october: 'أكتوبر',
+    november: 'نوفمبر',
+    december: 'ديسمبر',
+    
+    // Drivers
+    driversList: 'قائمة السائقين',
+    addDriver: 'إضافة سائق',
+    editDriver: 'تعديل السائق',
+    edit: 'تعديل',
+    delete: 'حذف',
+    search: 'بحث عن سائق...',
+    noDriversFound: 'لا توجد نتائج',
+    
+    // Driver Types
+    driverType: 'سائق',
+    loaderType: 'محمل',
+    supervisorType: 'مسؤول',
+    
+    // Route Types
+    singleRoute: '1 مسار',
+    twoRoutes: '2 مسارات',
+    multipleRoutes: '+2 مسارات',
+    
+    // Filters
+    all: 'الكل',
+    
+    // Driver Modal
+    fullName: 'الاسم الكامل',
+    type: 'النوع',
+    routeType: 'نوع المسار',
+    singleFixedRoute: 'مسار واحد ثابت',
+    twoRoutesOption: 'مساران',
+    multipleRoutesOption: 'أكثر من مسارين',
+    assignedRoute: 'المسار الثابت',
+    availableRoutes: 'المسارات المتاحة',
+    selectRoute: 'اختر المسار',
+    selected: 'محدد',
+    routes: 'مسار',
+    save: 'حفظ',
+    cancel: 'إلغاء',
+    
+    // Routes
+    routesList: 'قائمة المسارات',
+    addRoute: 'إضافة مسار',
+    editRoute: 'تعديل المسار',
+    routeCode: 'رمز المسار',
+    truckPlate: 'لوحة الشاحنة',
+    clients: 'العملاء',
+    addClient: 'إضافة عميل',
+    client: 'عميل',
+    
+    // Cell Edit Modal
+    editSchedule: 'تعديل الجدول',
+    day: 'اليوم',
+    value: 'القيمة',
+    work: 'عمل',
+    vacation: 'عطلة سنوية',
+    sick: 'عطلة مرضية',
+    select: 'اختر',
+    morning: 'صباحي',
+    evening: 'مسائي',
+    
+    // Stats
+    totalDrivers: 'إجمالي السائقين',
+    loaders: 'المحملين',
+    supervisors: 'المسؤولين',
+    workingDays: 'أيام العمل',
+    annualLeaves: 'عطل سنوية',
+    sickLeaves: 'عطل مرضية',
+    
+    // Messages
+    worksAlways: 'يعمل دائماً بنفس المسار',
+    worksTwoRoutes: 'يعمل بمسارين مختلفين',
+    worksMultiple: 'يعمل بأكثر من مسارين',
+    deleteConfirm: 'هل تريد حذف',
+    pleaseEnterName: 'يرجى إدخال اسم السائق',
+    pleaseEnterCode: 'يرجى إدخال رمز المسار',
+    pleaseEnterPlate: 'يرجى إدخال اللوحة',
+    pleaseAddClient: 'يرجى إضافة عميل واحد على الأقل',
+    
+    // Footer
+    allRightsReserved: 'جميع الحقوق محفوظة',
+    fleetManagement: 'نظام إدارة الأسطول'
+  },
+  en: {
+    // Navbar
+    calendar: 'Calendar',
+    drivers: 'Drivers',
+    routes: 'Routes',
+    stats: 'Statistics',
+    
+    // Calendar
+    downloadTemplate: 'Download Template',
+    import: 'Import',
+    generate: 'Generate 4/2',
+    driver: 'Driver',
+    
+    // Legend
+    legend: 'Legend',
+    weekend: 'Weekend',
+    annualLeave: 'Annual Leave (V)',
+    sickLeave: 'Sick Leave (Baja)',
+    loader: 'Loader (CT/CM)',
+    route: 'Route',
+    
+    // Months
+    january: 'January',
+    february: 'February',
+    march: 'March',
+    april: 'April',
+    may: 'May',
+    june: 'June',
+    july: 'July',
+    august: 'August',
+    september: 'September',
+    october: 'October',
+    november: 'November',
+    december: 'December',
+    
+    // Drivers
+    driversList: 'Drivers List',
+    addDriver: 'Add Driver',
+    editDriver: 'Edit Driver',
+    edit: 'Edit',
+    delete: 'Delete',
+    search: 'Search driver...',
+    noDriversFound: 'No drivers found',
+    
+    // Driver Types
+    driverType: 'Driver',
+    loaderType: 'Loader',
+    supervisorType: 'Supervisor',
+    
+    // Route Types
+    singleRoute: '1 Route',
+    twoRoutes: '2 Routes',
+    multipleRoutes: '+2 Routes',
+    
+    // Filters
+    all: 'All',
+    
+    // Driver Modal
+    fullName: 'Full Name',
+    type: 'Type',
+    routeType: 'Route Type',
+    singleFixedRoute: 'Single Fixed Route',
+    twoRoutesOption: 'Two Routes',
+    multipleRoutesOption: 'Multiple Routes',
+    assignedRoute: 'Assigned Route',
+    availableRoutes: 'Available Routes',
+    selectRoute: 'Select Route',
+    selected: 'Selected',
+    routes: 'routes',
+    save: 'Save',
+    cancel: 'Cancel',
+    
+    // Routes
+    routesList: 'Routes List',
+    addRoute: 'Add Route',
+    editRoute: 'Edit Route',
+    routeCode: 'Route Code',
+    truckPlate: 'Truck Plate',
+    clients: 'Clients',
+    addClient: 'Add Client',
+    client: 'Client',
+    
+    // Cell Edit Modal
+    editSchedule: 'Edit Schedule',
+    day: 'Day',
+    value: 'Value',
+    work: 'Work',
+    vacation: 'Vacation',
+    sick: 'Sick Leave',
+    select: 'Select',
+    morning: 'Morning',
+    evening: 'Evening',
+    
+    // Stats
+    totalDrivers: 'Total Drivers',
+    loaders: 'Loaders',
+    supervisors: 'Supervisors',
+    workingDays: 'Working Days',
+    annualLeaves: 'Annual Leaves',
+    sickLeaves: 'Sick Leaves',
+    
+    // Messages
+    worksAlways: 'Always works on the same route',
+    worksTwoRoutes: 'Works on two different routes',
+    worksMultiple: 'Works on more than two routes',
+    deleteConfirm: 'Do you want to delete',
+    pleaseEnterName: 'Please enter driver name',
+    pleaseEnterCode: 'Please enter route code',
+    pleaseEnterPlate: 'Please enter plate',
+    pleaseAddClient: 'Please add at least one client',
+    
+    // Footer
+    allRightsReserved: 'All rights reserved',
+    fleetManagement: 'Fleet Management System'
+  }
+};
+
+export const getTranslation = (lang, key) => {
+  return translations[lang]?.[key] || translations.es[key] || key;
+};

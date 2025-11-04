@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60" width="200" height="60">
+  <!-- Yellow circle background -->
+  <circle cx="30" cy="30" r="28" fill="#FFD200"/>
+  
+  <!-- Blue circular elements -->
+  <path d="M 15 15 Q 10 30 15 45 Q 30 50 45 45 Q 50 30 45 15 Q 30 10 15 15" fill="#0066B3"/>
+  
+  <!-- White inner circle -->
+  <circle cx="30" cy="30" r="12" fill="white"/>
+  
+  <!-- ILUNION text -->
+  <text x="70" y="38" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#0066B3">ILUNION</text>
+</svg>
