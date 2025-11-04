@@ -1,0 +1,87 @@
+Asunto: Publicar Sistema de Gestión de Flotas en Internet - 5 Pasos
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Hola,
+
+Te envío los pasos para publicar el Sistema de Gestión de Flotas en Internet usando Netlify (gratis).
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🚀 PASOS RÁPIDOS (5 minutos)
+
+PASO 1: Registrarse
+→ Ve a: https://app.netlify.com
+→ Haz clic en "Sign up with GitHub"
+→ Autoriza Netlify
+
+PASO 2: Importar Proyecto
+→ Clic en "Add new site"
+→ Selecciona "Import from Git" → GitHub
+→ Elige: fleet-management
+
+PASO 3: Configurar
+Build command: npm run build
+Publish directory: dist
+(Netlify lo detecta automáticamente)
+
+PASO 4: Desplegar
+→ Clic en "Deploy site"
+→ Espera 1-2 minutos
+
+PASO 5: ¡Listo!
+→ Recibirás un enlace como:
+https://tu-proyecto.netlify.app
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+💡 VENTAJAS
+
+✅ 100% Gratis
+✅ Actualización automática (cada vez que hagas git push)
+✅ HTTPS seguro incluido
+✅ Funciona en móviles y tablets
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔄 ACTUALIZACIONES FUTURAS
+
+Cada vez que modifiques el código:
+
+git add .
+git commit -m "Actualización"
+git push
+
+→ Netlify actualizará el sitio automáticamente
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+🔒 SEGURIDAD
+
+▪ Los datos se guardan en el navegador de cada usuario
+▪ No se comparten datos entre usuarios
+▪ Puedes añadir contraseña en: Site Settings → Access Control
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+❓ SI HAY PROBLEMAS
+
+Error "Repository not found":
+→ GitHub Settings → Applications → Netlify
+→ Dar acceso al repositorio
+
+Build Failed:
+→ Revisar el log de errores en Netlify
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+📌 ENLACES
+
+Netlify: https://app.netlify.com
+Tu GitHub: https://github.com/zmaimy22/fleet-management
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Si tienes dudas, contáctame.
+
+Saludos
