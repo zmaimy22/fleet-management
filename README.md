@@ -376,7 +376,7 @@ Desarrollado para **ILUNION**
 
 Para soporte técnico o consultas:
 
-- 📧 Email: [tu-email@ejemplo.com]
+- 📧 Email: abojad.tasnim@yahoo.com
 - 📄 Documentación: Ver [INSTALACION.md](INSTALACION.md)
 - 🐛 Reportar bugs: [GitHub Issues]
 
