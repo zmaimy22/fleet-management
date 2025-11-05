@@ -80,6 +80,18 @@ function App() {
     const next = { ...schedule };
     const missing = {};
     
+    // Load approved vacation requests
+    const savedRequests = localStorage.getItem('vacationRequests');
+    let approvedVacations = [];
+    if (savedRequests) {
+      try {
+        const allRequests = JSON.parse(savedRequests);
+        approvedVacations = allRequests.filter(r => r.status === 'approved');
+      } catch (e) {
+        approvedVacations = [];
+      }
+    }
+    
     // Calculate previous month info for user message
     const prevMonth = currentMonth === 0 ? 11 : currentMonth - 1;
     const prevYear = currentMonth === 0 ? currentYear - 1 : currentYear;
@@ -142,10 +154,28 @@ function App() {
     drivers.forEach((d, idx) => {
       if (!next[d.id]) next[d.id] = {};
       const startIndex = inferStartIndex(d.id);
+      
+      // Check if driver has approved vacation in this month
+      const driverVacations = approvedVacations.filter(v => v.driverId === d.id);
+      
       for (let day = 1; day <= days; day++) {
         const existing = next[d.id][day];
         // keep strict exceptions
         if (existing && (existing.type === 'vacation' || existing.type === 'sick')) continue;
+        
+        // Check if this day falls within an approved vacation
+        const currentDate = new Date(currentYear, currentMonth, day);
+        const isVacationDay = driverVacations.some(v => {
+          const start = new Date(v.startDate);
+          const end = new Date(v.endDate);
+          return currentDate >= start && currentDate <= end;
+        });
+        
+        if (isVacationDay) {
+          // Apply vacation for this day
+          next[d.id][day] = { type: 'vacation', value: 'V' };
+          continue;
+        }
 
         const pi = (startIndex + day - 1) % 6; // 0-3 work, 4-5 off
         if (pi <= 3) {
@@ -222,6 +252,21 @@ function App() {
     message += `👥 السائقون: ${totalDrivers} conductores\n`;
     message += `🛣️ المسارات: ${totalRoutes} rutas\n`;
     message += `📅 الأيام: ${days} días\n`;
+    
+    // Vacation requests info
+    if (approvedVacations.length > 0) {
+      const vacationsInMonth = approvedVacations.filter(v => {
+        const start = new Date(v.startDate);
+        const end = new Date(v.endDate);
+        const monthStart = new Date(currentYear, currentMonth, 1);
+        const monthEnd = new Date(currentYear, currentMonth + 1, 0);
+        return (start <= monthEnd && end >= monthStart);
+      });
+      if (vacationsInMonth.length > 0) {
+        message += `\n🏖️ Vacaciones aplicadas: ${vacationsInMonth.length}\n`;
+        message += `✓ Se respetaron las solicitudes aprobadas\n`;
+      }
+    }
     
     // Missing routes warning
     if (missingDays.length > 0) {
