@@ -1,0 +1,21 @@
+{
+  "name": "ILUNION Fleet Management",
+  "short_name": "Fleet Mgmt",
+  "description": "Sistema de gestión de flotas para ILUNION",
+  "start_url": "/fleet-management/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/fleet-management/truck.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["business", "productivity"],
+  "lang": "ar",
+  "dir": "rtl"
+}

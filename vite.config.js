@@ -5,10 +5,16 @@ export default defineConfig({
   plugins: [react()],
   base: '/fleet-management/',
   server: {
-    port: 3000
+    port: 3000,
+    host: true, // Allow access from network (for mobile testing)
+    strictPort: false
   },
   build: {
     outDir: 'dist',
-    emptyOutDir: true
+    emptyOutDir: true,
+    // Optimize for mobile
+    minify: 'terser',
+    target: 'es2015',
+    cssCodeSplit: true
   }
 })
