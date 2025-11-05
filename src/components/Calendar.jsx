@@ -16,12 +16,17 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   const [editingDriver, setEditingDriver] = useState(null);
   const [mobileView, setMobileView] = useState(false);
   const [weekOffset, setWeekOffset] = useState(0);
+  const [headerHeight, setHeaderHeight] = useState(0);
   const fileInputRef = useRef(null);
+  const headerRef = useRef(null);
   
-  // Detect mobile screen
+  // Detect mobile screen and header height
   useEffect(() => {
     const checkMobile = () => {
       setMobileView(window.innerWidth < 768);
+      if (headerRef.current) {
+        setHeaderHeight(headerRef.current.offsetHeight);
+      }
     };
     checkMobile();
     window.addEventListener('resize', checkMobile);
@@ -348,7 +353,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   return (
     <div className="bg-white rounded-2xl shadow-2xl overflow-visible transform transition-all duration-300 hover:shadow-3xl">
       {/* Header */}
-      <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-6 text-white relative overflow-hidden rounded-t-2xl">
+      <div ref={headerRef} className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 p-6 text-white relative overflow-hidden rounded-t-2xl">
         <div className="absolute inset-0 opacity-10 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.8),transparent_50%)]"></div>
         <div className="flex items-center justify-between gap-3 flex-wrap relative z-10">
           <button 
@@ -505,7 +510,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       
       {/* Mobile Week Navigation */}
       {mobileView && (
-        <div className="sticky top-0 z-[9999] bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 border-b-2 border-purple-200 shadow-lg backdrop-blur-sm">
+        <div 
+          className="fixed left-0 right-0 z-[9999] bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 border-b-2 border-purple-200 shadow-lg backdrop-blur-md bg-opacity-95 transition-all duration-200"
+          style={{ top: `${headerHeight || 0}px` }}
+        >
           <div className="flex items-center justify-between max-w-md mx-auto">
             <button
               onClick={() => setWeekOffset(Math.max(0, weekOffset - 1))}
@@ -544,7 +552,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       )}
       
       {/* Calendar Grid */}
-      <div className="overflow-x-auto max-w-full relative">
+      <div 
+        className="overflow-x-auto max-w-full relative transition-all duration-200"
+        style={mobileView ? { marginTop: `${(headerHeight || 0) + 60}px` } : {}}
+      >
         <div className="inline-block min-w-full">
           <table className="border-collapse w-full">
             <thead>
