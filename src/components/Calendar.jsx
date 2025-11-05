@@ -505,7 +505,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       
       {/* Mobile Week Navigation */}
       {mobileView && (
-        <div className="bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 border-b-2 border-purple-200">
+        <div className="sticky top-0 z-[100] bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 border-b-2 border-purple-200 shadow-lg">
           <div className="flex items-center justify-between max-w-md mx-auto">
             <button
               onClick={() => setWeekOffset(Math.max(0, weekOffset - 1))}
