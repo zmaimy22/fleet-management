@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Edit2, Download } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Edit2, Download, Monitor, Smartphone, ArrowLeft, ArrowRight } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage.jsx';
 import { useDrivers } from '../hooks/useDrivers';
 import DriverModal from './DriverModal';
@@ -14,7 +14,19 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   const [availableMonths, setAvailableMonths] = useState([]);
   const [showDriverModal, setShowDriverModal] = useState(false);
   const [editingDriver, setEditingDriver] = useState(null);
+  const [mobileView, setMobileView] = useState(false);
+  const [weekOffset, setWeekOffset] = useState(0);
   const fileInputRef = useRef(null);
+  
+  // Detect mobile screen
+  useEffect(() => {
+    const checkMobile = () => {
+      setMobileView(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // Categorize drivers by their category field
   const lanzaroteDrivers = drivers.filter(d => d.category === 'lanzarote');
@@ -36,7 +48,19 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   }, [schedule]);
   
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-  const days = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  const allDays = Array.from({ length: daysInMonth }, (_, i) => i + 1);
+  
+  // For mobile: show 7 days at a time
+  const getDaysToShow = () => {
+    if (!mobileView) return allDays;
+    const startDay = weekOffset * 7 + 1;
+    const endDay = Math.min(startDay + 6, daysInMonth);
+    return allDays.slice(startDay - 1, endDay);
+  };
+  
+  const days = getDaysToShow();
+  const totalWeeks = Math.ceil(daysInMonth / 7);
+  const currentWeek = weekOffset + 1;
   
   const monthNames = [
     'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
@@ -49,6 +73,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   ];
 
   const handlePrevMonth = () => {
+    setWeekOffset(0); // Reset to first week
     if (currentMonth === 0) {
       setCurrentMonth(11);
       setCurrentYear(currentYear - 1);
@@ -63,6 +88,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   };
 
   const handleNextMonth = () => {
+    setWeekOffset(0); // Reset to first week
     if (currentMonth === 11) {
       setCurrentMonth(0);
       setCurrentYear(currentYear + 1);
@@ -285,16 +311,18 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
     return driversList.map((driver, idx) => (
       <tr key={driver.id} className={`${(startIdx + idx) % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'} hover:bg-blue-50/30 transition-colors duration-150`}>
         <td 
-          className="sticky left-0 z-[5] border-2 border-gray-300 p-3 font-semibold bg-gradient-to-r from-gray-100 to-gray-50 text-sm text-gray-800 shadow-sm cursor-pointer hover:bg-blue-100 transition-colors group"
+          className={`sticky left-0 z-[5] border-2 border-gray-300 font-semibold bg-gradient-to-r from-gray-100 to-gray-50 text-gray-800 shadow-sm cursor-pointer hover:bg-blue-100 transition-colors group ${
+            mobileView ? 'p-2 text-xs' : 'p-3 text-sm'
+          }`}
           onClick={(e) => handleDriverClick(driver, e)}
           title="Clic para editar conductor / انقر لتعديل السائق"
         >
           <span className="flex items-center gap-2 justify-between">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></span>
-              {driver.name}
+            <span className="flex items-center gap-1">
+              <span className={`rounded-full bg-blue-500 animate-pulse ${mobileView ? 'w-1.5 h-1.5' : 'w-2 h-2'}`}></span>
+              <span className={mobileView ? 'truncate max-w-[80px]' : ''}>{driver.name}</span>
             </span>
-            <Edit2 size={14} className="text-gray-400 group-hover:text-blue-600 transition-colors" />
+            {!mobileView && <Edit2 size={14} className="text-gray-400 group-hover:text-blue-600 transition-colors" />}
           </span>
         </td>
         {days.map(day => {
@@ -302,10 +330,12 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
           return (
             <td
               key={`${driver.id}-${day}`}
-              className={`border border-gray-300 p-1 text-center cursor-pointer transition-all duration-150 hover:opacity-80 hover:scale-105 active:scale-95 ${getCellColor(cellData)}`}
+              className={`border border-gray-300 text-center cursor-pointer transition-all duration-150 hover:opacity-80 active:scale-95 ${getCellColor(cellData)} ${
+                mobileView ? 'p-2 hover:scale-100' : 'p-1 hover:scale-105'
+              }`}
               onClick={() => onCellClick(driver, day, cellData)}
             >
-              <span className="text-xs font-semibold">
+              <span className={`font-semibold ${mobileView ? 'text-sm' : 'text-xs'}`}>
                 {cellData?.value || ''}
               </span>
             </td>
@@ -323,17 +353,21 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
         <div className="flex items-center justify-between gap-3 flex-wrap relative z-10">
           <button 
             onClick={handlePrevMonth}
-            className="p-3 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg"
+            className={`hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
+              mobileView ? 'p-2' : 'p-3'
+            }`}
             title={t('prevMonth') || 'الشهر السابق / Previous month'}
           >
-            <ChevronLeft size={28} className="drop-shadow-lg" />
+            <ChevronLeft size={mobileView ? 20 : 28} className="drop-shadow-lg" />
           </button>
           <div className="relative z-[50]">
             <button
               onClick={() => setShowMonthPicker(!showMonthPicker)}
-              className="text-2xl font-bold hover:bg-white/20 px-6 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 backdrop-blur-sm hover:scale-105 active:scale-95 shadow-lg relative z-[9998]"
+              className={`font-bold hover:bg-white/20 rounded-xl transition-all duration-200 flex items-center backdrop-blur-sm hover:scale-105 active:scale-95 shadow-lg relative z-[9998] ${
+                mobileView ? 'text-sm px-3 py-2 gap-2' : 'text-2xl px-6 py-3 gap-3'
+              }`}
             >
-              <CalendarIcon size={28} className="drop-shadow-lg" />
+              <CalendarIcon size={mobileView ? 20 : 28} className="drop-shadow-lg" />
               <span className="drop-shadow-lg">{monthNamesES[currentMonth]} {currentYear}</span>
             </button>
             {showMonthPicker && availableMonths.length > 0 && (
@@ -402,15 +436,17 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
               </div>
             )}
           </div>
-          <div className="flex items-center gap-2">
-            <a
-              href="/schedule_template.csv"
-              download
-              className="px-4 py-2.5 bg-white/10 hover:bg-white/25 rounded-lg text-sm font-medium backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-              title="تنزيل القالب / Download template"
-            >
-              📥 Download
-            </a>
+          <div className={`flex items-center ${mobileView ? 'gap-1' : 'gap-2'}`}>
+            {!mobileView && (
+              <a
+                href="/schedule_template.csv"
+                download
+                className="px-4 py-2.5 bg-white/10 hover:bg-white/25 rounded-lg text-sm font-medium backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+                title="تنزيل القالب / Download template"
+              >
+                📥 Download
+              </a>
+            )}
             <input
               ref={fileInputRef}
               type="file"
@@ -423,36 +459,89 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
               }}
             />
             <button
-              className="px-4 py-2.5 bg-white text-blue-700 rounded-lg text-sm font-medium hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+              className={`bg-white text-blue-700 rounded-lg font-medium hover:bg-blue-50 transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl ${
+                mobileView ? 'p-2 text-xs' : 'px-4 py-2.5 text-sm'
+              }`}
               onClick={() => fileInputRef.current?.click()}
+              title="Import"
             >
-              📤 Import
+              {mobileView ? '📤' : '📤 Import'}
             </button>
             <button
-              className="px-4 py-2.5 bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
+              className={`bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl ${
+                mobileView ? 'p-2 text-xs' : 'px-4 py-2.5 text-sm'
+              }`}
               onClick={() => onGenerate && onGenerate()}
-              title="توليد جدول 4 عمل / 2 راحة (يستمر من الشهر السابق إن وجد) / Generate 4/2 pattern (continues from previous month if exists)"
+              title="Generate 4/2 pattern"
             >
-              ⚡ Generate 4/2
+              {mobileView ? '⚡' : '⚡ Generate 4/2'}
             </button>
             <button
-              className="px-4 py-2.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg text-sm font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2"
+              className={`bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-lg font-medium transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl flex items-center gap-2 ${
+                mobileView ? 'p-2 text-xs' : 'px-4 py-2.5 text-sm'
+              }`}
               onClick={handleExportToExcel}
-              title="تصدير إلى Excel / Export to Excel"
+              title="Export to Excel"
             >
-              <Download size={18} />
-              📊 Export Excel
+              {mobileView ? '📊' : (
+                <>
+                  <Download size={18} />
+                  📊 Export Excel
+                </>
+              )}
             </button>
           </div>
           <button 
             onClick={handleNextMonth}
-            className="p-3 hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg"
+            className={`hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
+              mobileView ? 'p-2' : 'p-3'
+            }`}
             title={t('nextMonth') || 'الشهر التالي / Next month'}
           >
-            <ChevronRight size={28} className="drop-shadow-lg" />
+            <ChevronRight size={mobileView ? 20 : 28} className="drop-shadow-lg" />
           </button>
         </div>
       </div>
+      
+      {/* Mobile Week Navigation */}
+      {mobileView && (
+        <div className="bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 border-b-2 border-purple-200">
+          <div className="flex items-center justify-between max-w-md mx-auto">
+            <button
+              onClick={() => setWeekOffset(Math.max(0, weekOffset - 1))}
+              disabled={weekOffset === 0}
+              className={`p-2 rounded-lg transition-all ${
+                weekOffset === 0 
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                  : 'bg-white text-purple-600 hover:bg-purple-100 active:scale-95 shadow-md'
+              }`}
+            >
+              <ArrowLeft size={20} />
+            </button>
+            
+            <div className="text-center">
+              <p className="text-sm font-bold text-purple-700">
+                📅 أسبوع {currentWeek} من {totalWeeks}
+              </p>
+              <p className="text-xs text-gray-600">
+                {days[0]} - {days[days.length - 1]} {monthNamesES[currentMonth]}
+              </p>
+            </div>
+            
+            <button
+              onClick={() => setWeekOffset(Math.min(totalWeeks - 1, weekOffset + 1))}
+              disabled={weekOffset >= totalWeeks - 1}
+              className={`p-2 rounded-lg transition-all ${
+                weekOffset >= totalWeeks - 1
+                  ? 'bg-gray-200 text-gray-400 cursor-not-allowed' 
+                  : 'bg-white text-purple-600 hover:bg-purple-100 active:scale-95 shadow-md'
+              }`}
+            >
+              <ArrowRight size={20} />
+            </button>
+          </div>
+        </div>
+      )}
       
       {/* Calendar Grid */}
       <div className="overflow-x-auto max-w-full">
@@ -460,13 +549,17 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
           <table className="border-collapse w-full">
             <thead>
               <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <th className="sticky left-0 z-[5] bg-gradient-to-r from-gray-100 to-gray-50 border-2 border-gray-300 p-3 w-[200px] text-right text-sm font-bold text-gray-700 shadow-sm">
+                <th className={`sticky left-0 z-[5] bg-gradient-to-r from-gray-100 to-gray-50 border-2 border-gray-300 text-right font-bold text-gray-700 shadow-sm ${
+                  mobileView ? 'p-2 w-[120px] text-xs' : 'p-3 w-[200px] text-sm'
+                }`}>
                   <span className="flex items-center gap-2">
-                    👤 السائق / Driver
+                    {mobileView ? '👤' : '👤 السائق / Driver'}
                   </span>
                 </th>
                 {days.map(day => (
-                  <th key={day} className="border border-gray-300 p-2 min-w-[50px] text-center font-bold text-sm bg-gradient-to-b from-white to-gray-50 hover:bg-blue-50 transition-colors">
+                  <th key={day} className={`border border-gray-300 text-center font-bold bg-gradient-to-b from-white to-gray-50 hover:bg-blue-50 transition-colors ${
+                    mobileView ? 'p-3 min-w-[60px] text-base' : 'p-2 min-w-[50px] text-sm'
+                  }`}>
                     <span className="inline-block transform hover:scale-125 transition-transform">{day}</span>
                   </th>
                 ))}
@@ -477,8 +570,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {lanzaroteDrivers.length > 0 && (
               <>
                 <tr className="bg-yellow-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-yellow-300">
-                    🚢 Rutas a Lanzarote / المسارات إلى Lanzarote ({lanzaroteDrivers.length} conductores)
+                  <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-yellow-300 ${
+                    mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
+                  }`}>
+                    {mobileView ? '🚢 Lanzarote' : '🚢 Rutas a Lanzarote / المسارات إلى Lanzarote'} ({lanzaroteDrivers.length})
                   </td>
                 </tr>
                 {renderDriverRows(lanzaroteDrivers, 0)}
@@ -489,8 +584,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {localMorningDrivers.length > 0 && (
               <>
                 <tr className="bg-gray-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-gray-300">
-                    ☀️ Rutas Locales Mañana / المسارات المحلية صباحاً ({localMorningDrivers.length} conductores)
+                  <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-gray-300 ${
+                    mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
+                  }`}>
+                    {mobileView ? '☀️ Local Mañana' : '☀️ Rutas Locales Mañana / المسارات المحلية صباحاً'} ({localMorningDrivers.length})
                   </td>
                 </tr>
                 {renderDriverRows(localMorningDrivers, lanzaroteDrivers.length)}
@@ -501,8 +598,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {localNightDrivers.length > 0 && (
               <>
                 <tr className="bg-gray-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-gray-300">
-                    🌙 Rutas Locales Noche / المسارات المحلية ليلاً ({localNightDrivers.length} conductores)
+                  <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-gray-300 ${
+                    mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
+                  }`}>
+                    {mobileView ? '🌙 Local Noche' : '🌙 Rutas Locales Noche / المسارات المحلية ليلاً'} ({localNightDrivers.length})
                   </td>
                 </tr>
                 {renderDriverRows(localNightDrivers, lanzaroteDrivers.length + localMorningDrivers.length)}
@@ -513,8 +612,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {otherStaff.length > 0 && (
               <>
                 <tr className="bg-green-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-green-300">
-                    👥 Personal / الموظفون ({otherStaff.length} personas)
+                  <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-green-300 ${
+                    mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
+                  }`}>
+                    {mobileView ? '👥 Personal' : '👥 Personal / الموظفون'} ({otherStaff.length})
                   </td>
                 </tr>
                 {renderDriverRows(otherStaff, lanzaroteDrivers.length + localMorningDrivers.length + localNightDrivers.length)}
