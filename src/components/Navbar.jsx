@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Truck, Users, Calendar, BarChart3, Settings, Globe, CheckCircle, Palmtree, Menu, X } from 'lucide-react';
+import { Truck, Users, Calendar, BarChart3, Settings, CheckCircle, Palmtree, Menu, X } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage.jsx';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
-  const { language, changeLanguage, t } = useLanguage();
+  const { t } = useLanguage();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const tabs = [
@@ -32,7 +32,6 @@ const Navbar = ({ activeTab, setActiveTab }) => {
             </div>
             <div className="min-w-0">
               <h1 className="text-sm sm:text-xl font-bold text-white truncate">Sistema de Gestión de Flotas</h1>
-              <p className="text-xs sm:text-sm text-white/90 hidden sm:block">نظام إدارة الأسطول</p>
             </div>
           </div>
           
@@ -65,36 +64,6 @@ const Navbar = ({ activeTab, setActiveTab }) => {
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
           
-          {/* Language Selector - Desktop */}
-          <div className="hidden lg:flex items-center gap-2 ml-4">
-            <Globe className="text-white" size={20} />
-            <div className="flex gap-1 bg-white/10 rounded-lg p-1">
-              <button
-                onClick={() => changeLanguage('es')}
-                className={`px-3 py-1 rounded text-sm transition ${
-                  language === 'es' ? 'bg-white text-blue-600' : 'text-white hover:bg-white/20'
-                }`}
-              >
-                ES
-              </button>
-              <button
-                onClick={() => changeLanguage('ar')}
-                className={`px-3 py-1 rounded text-sm transition ${
-                  language === 'ar' ? 'bg-white text-blue-600' : 'text-white hover:bg-white/20'
-                }`}
-              >
-                AR
-              </button>
-              <button
-                onClick={() => changeLanguage('en')}
-                className={`px-3 py-1 rounded text-sm transition ${
-                  language === 'en' ? 'bg-white text-blue-600' : 'text-white hover:bg-white/20'
-                }`}
-              >
-                EN
-              </button>
-            </div>
-          </div>
         </div>
 
         {/* Mobile Navigation Menu */}
@@ -118,37 +87,6 @@ const Navbar = ({ activeTab, setActiveTab }) => {
                   </button>
                 );
               })}
-              
-              {/* Language Selector - Mobile */}
-              <div className="flex items-center gap-2 px-4 py-3 mt-2 border-t border-white/20">
-                <Globe className="text-white" size={20} />
-                <div className="flex gap-2 flex-1">
-                  <button
-                    onClick={() => changeLanguage('es')}
-                    className={`flex-1 px-3 py-2 rounded-lg text-sm transition ${
-                      language === 'es' ? 'bg-white text-blue-600' : 'bg-white/10 text-white hover:bg-white/20'
-                    }`}
-                  >
-                    Español
-                  </button>
-                  <button
-                    onClick={() => changeLanguage('ar')}
-                    className={`flex-1 px-3 py-2 rounded-lg text-sm transition ${
-                      language === 'ar' ? 'bg-white text-blue-600' : 'bg-white/10 text-white hover:bg-white/20'
-                    }`}
-                  >
-                    العربية
-                  </button>
-                  <button
-                    onClick={() => changeLanguage('en')}
-                    className={`flex-1 px-3 py-2 rounded-lg text-sm transition ${
-                      language === 'en' ? 'bg-white text-blue-600' : 'bg-white/10 text-white hover:bg-white/20'
-                    }`}
-                  >
-                    English
-                  </button>
-                </div>
-              </div>
             </div>
           </div>
         )}

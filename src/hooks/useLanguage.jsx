@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from 'react';
+import React, { useEffect, createContext, useContext } from 'react';
 import { getTranslation } from '../i18n/translations';
 
 const LanguageContext = createContext();
@@ -12,30 +12,18 @@ export const useLanguage = () => {
 };
 
 export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('es'); // Default Spanish
+  const language = 'es'; // Fixed Spanish only
 
   useEffect(() => {
-    const savedLang = localStorage.getItem('appLanguage');
-    if (savedLang && ['es', 'ar', 'en'].includes(savedLang)) {
-      setLanguage(savedLang);
-    }
-    // Set initial direction and language
-    document.documentElement.dir = savedLang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = savedLang || 'es';
+    // Set Spanish direction and language
+    document.documentElement.dir = 'ltr';
+    document.documentElement.lang = 'es';
   }, []);
-
-  const changeLanguage = (lang) => {
-    setLanguage(lang);
-    localStorage.setItem('appLanguage', lang);
-    // Update document direction for Arabic
-    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = lang;
-  };
 
   const t = (key) => getTranslation(language, key);
 
   return (
-    <LanguageContext.Provider value={{ language, changeLanguage, t }}>
+    <LanguageContext.Provider value={{ language, t }}>
       {children}
     </LanguageContext.Provider>
   );
