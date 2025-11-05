@@ -12,6 +12,7 @@ import VacationRequests from './components/VacationRequests';
 import { scheduleData } from './data/drivers';
 import { useRoutes } from './hooks/useRoutes';
 import { useDrivers } from './hooks/useDrivers';
+import { routes as allRoutesData } from './data/routes';
 
 function App() {
   const { routeCodes } = useRoutes();
@@ -189,32 +190,39 @@ function App() {
 
     // Ensure route coverage per day (non-loader workers only)
     for (let day = 1; day <= days; day++) {
-      // Get available drivers by category
-      const availableByCategory = {
-        lanzarote: drivers.filter(d => d.type === 'driver' && d.category === 'lanzarote' && next[d.id]?.[day]?.type === 'work'),
-        local_morning: drivers.filter(d => d.type === 'driver' && d.category === 'local_morning' && next[d.id]?.[day]?.type === 'work'),
-        local_night: drivers.filter(d => d.type === 'driver' && d.category === 'local_night' && next[d.id]?.[day]?.type === 'work'),
-        other: drivers.filter(d => d.type === 'driver' && !d.category && next[d.id]?.[day]?.type === 'work')
-      };
+      // Get available drivers (only type 'driver', not loaders)
+      const availableDrivers = drivers.filter(d => 
+        d.type === 'driver' && next[d.id]?.[day]?.type === 'work'
+      );
       
-      const routesPool = [...allRoutes];
-      const assigned = new Set();
-      
-      // Assign routes intelligently based on driver category
-      Object.entries(availableByCategory).forEach(([category, driversList]) => {
-        driversList.forEach((driver) => {
-          if (routesPool.length > 0) {
-            // Pick the first available route
-            const route = routesPool.shift();
-            next[driver.id][day].value = route;
-            assigned.add(route);
-          }
-        });
+      // Create route queue with drivers needed info
+      const routeQueue = [];
+      allRoutes.forEach(routeCode => {
+        const routeData = allRoutesData.find(r => r.shortCode === routeCode);
+        const driversNeeded = routeData?.driversNeeded || 1;
+        
+        // Add route multiple times based on driversNeeded
+        for (let i = 0; i < driversNeeded; i++) {
+          routeQueue.push(routeCode);
+        }
       });
       
-      // Track missing routes
-      if (routesPool.length > 0) {
-        missing[day] = routesPool;
+      // Assign routes to available drivers
+      let driverIndex = 0;
+      const uncoveredRoutes = new Set([...allRoutes]);
+      
+      routeQueue.forEach(routeCode => {
+        if (driverIndex < availableDrivers.length) {
+          const driver = availableDrivers[driverIndex];
+          next[driver.id][day].value = routeCode;
+          uncoveredRoutes.delete(routeCode);
+          driverIndex++;
+        }
+      });
+      
+      // Track missing routes (routes with no drivers)
+      if (uncoveredRoutes.size > 0) {
+        missing[day] = Array.from(uncoveredRoutes);
       }
     }
 
@@ -248,9 +256,14 @@ function App() {
     }
     
     // Statistics
+    const totalDriversNeeded = allRoutesData
+      .filter(r => !r.isSecondary && allRoutes.includes(r.shortCode))
+      .reduce((sum, r) => sum + (r.driversNeeded || 1), 0);
+    
     message += `\n📊 الإحصائيات / Estadísticas:\n`;
-    message += `👥 السائقون: ${totalDrivers} conductores\n`;
+    message += `👥 السائقون المتاحون: ${totalDrivers} conductores\n`;
     message += `🛣️ المسارات: ${totalRoutes} rutas\n`;
+    message += `👨‍💼 السائقون المطلوبون: ${totalDriversNeeded} conductores\n`;
     message += `📅 الأيام: ${days} días\n`;
     
     // Vacation requests info

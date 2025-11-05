@@ -8,7 +8,8 @@ export const routes = [
     plate: '2391MMR',
     clients: ['PLAYA', 'PLAYA', 'FARO'],
     isSecondary: false,
-    category: 'lanzarote' // Ruta a Lanzarote
+    category: 'lanzarote', // Ruta a Lanzarote
+    driversNeeded: 3 // Number of drivers needed for this route
   },
   {
     code: 'R1.1 6712BHF',
@@ -23,7 +24,8 @@ export const routes = [
     shortCode: 'R2',
     plate: '3590LLL',
     clients: ['MAR', 'MAR', 'PARK'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 3 // Number of drivers needed for this route
   },
   {
     code: 'R2.2 6555HSS',
@@ -38,7 +40,8 @@ export const routes = [
     shortCode: 'R3',
     plate: '111DZZ',
     clients: ['PALMERA', 'O.DUNA', 'V.RENTAL', 'PALMERA', 'SATOCAN', 'V.RENTAL', 'PALMERA', 'SATOCAN', 'SURFINCOLOR', 'SURFINCOLOR', 'SURFINCOLOR', 'SURFINCOLOR'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R3.1 5456GCC',
@@ -53,14 +56,16 @@ export const routes = [
     shortCode: 'R4',
     plate: '9569GTT',
     clients: ['BRISTOL', 'SAND', 'SAND', 'BRISTOL', 'SAND', 'SAND', 'BRISTOL', 'SAND', 'SAND', 'ALOE', 'SAND', 'DREAM', 'ALOE', 'I.HOME', 'I.HOME'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R5 6755Mbf',
     shortCode: 'R5',
     plate: '6755Mbf',
     clients: ['PRINCES', 'PRINCES', 'GAVIOTA', 'PRINCES', 'PRINCES', 'GAVIOTA', 'PRINCES', 'PRINCES', 'GAVIOTA', 'PRINCES', 'PRINCES', 'GAVIOTA', 'PRINCES', 'PRINCES', 'GAVIOTA'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R6 fgytr',
@@ -68,14 +73,16 @@ export const routes = [
     plate: '5543DSE',
     clients: ['ALTAMARENA', 'PALGARDEN', 'IB PALACE', 'ALTAMARENA', 'PALGARDEN', 'IB PALACE', 'ALTAMARENA', 'IGRAMAR', 'IB PALACE', 'V.ALTA M', 'B.CALMA', 'B.CALMA'],
     notes: 'Igramar: domingo, martes, viernes',
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R7 9590HN',
     shortCode: 'R7',
     plate: '9590HN',
     clients: ['B.CLUB', 'B.CLUB', 'MAJORRERO', 'B.CLUB', 'B.CLUB', 'MAJORRERO', 'B.CLUB', 'B.CLUB', 'MAJORRERO', 'B.CLUB', 'B.CLUB', 'MAJORRERO', 'B.CLUB', 'TAHONA', 'TAHONA'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R7.1 6447HS',
@@ -90,49 +97,56 @@ export const routes = [
     shortCode: 'R8',
     plate: '7178MD',
     clients: ['ESMERALDA', 'TINDAYA', 'DRAGO', 'ESMERALDA', 'TINDAYA', 'DRAGO', 'ESMERALDA', 'TINDAYA', 'R.GATO', 'ESMERALDA', 'TINDAYA', 'TINDAYA', 'RIO JARDIN', 'RIO PLAYA', 'V.ANGELICA'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R9 9590HN',
     shortCode: 'R9',
     plate: '9590HN',
     clients: ['B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'B.FTV', 'F.SOL', 'M.CASTILLO'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R11 7517HW',
     shortCode: 'R11',
     plate: '7517HW',
     clients: ['RUBICON', 'TIMANFAYA', 'H10', 'RUBICON', 'TIMANFAYA', 'H10', 'RUBICON', 'TIMANFAYA', 'H10', 'RUBICON', 'TIMANFAYA', 'H10', 'RUBICON', 'TIMANFAYA', 'B.ROCK'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R12 5466DDE',
     shortCode: 'R12',
     plate: '5466DDE',
     clients: ['ROYAL', 'ACTIVE', 'ACTIVE', 'ROYAL', 'ACTIVE', 'ACTIVE', 'ROYAL', 'ACTIVE', 'ACTIVE', 'ROYAL', 'ACTIVE', 'ACTIVE', 'ROYAL', 'ROYAL', 'ACTIVE'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R13 2391MHH',
     shortCode: 'R13',
     plate: '2391MHH',
     clients: ['P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'P.BLANCA', 'I.BEROSTAR', 'I.BEROSTAR', 'I.BEROSTAR'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R14 3590LOO',
     shortCode: 'R14',
     plate: '3590LOO',
     clients: ['TEGUISE', 'TEGUISE', 'ACTIVE', 'TEGUISE', 'TEGUISE', 'ACTIVE', 'TEGUISE', 'TEGUISE', 'ACTIVE', 'TEGUISE', 'TEGUISE', 'ACTIVE', 'TEGUISE', 'TEGUISE', 'ACTIVE', 'TEGUISE', 'TEGUISE', 'ACTIVE'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   },
   {
     code: 'R15 9569GPP',
     shortCode: 'R15',
     plate: '9569GPP',
     clients: ['RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU', 'RIU'],
-    isSecondary: false
+    isSecondary: false,
+    driversNeeded: 1
   }
 ];
 
