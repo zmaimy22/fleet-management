@@ -27,27 +27,27 @@ const RoutesList = () => {
   };
 
   const handleDelete = (route) => {
-    if (confirm(`هل تريد حذف المسار ${route.shortCode}؟`)) {
+    if (confirm(`¿Eliminar la ruta ${route.shortCode}?`)) {
       deleteRoute(route.shortCode);
     }
   };
 
   const handleReset = () => {
-    if (confirm('¿Restablecer todas las rutas a los valores predeterminados? / إعادة تعيين جميع المسارات إلى القيم الافتراضية؟')) {
+    if (confirm('¿Restablecer todas las rutas a los valores predeterminados?')) {
       resetToDefaults();
-      alert('Rutas restablecidas / تم إعادة تعيين المسارات');
+      alert('Rutas restablecidas');
     }
   };
 
   return (
     <div className="bg-white rounded-lg shadow-xl p-6">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold text-gray-800">المسارات / Routes ({routes.length})</h2>
+        <h2 className="text-2xl font-bold text-gray-800">Rutas ({routes.length})</h2>
         <div className="flex gap-2">
           <button 
             onClick={handleReset}
             className="flex items-center gap-2 bg-orange-500 text-white px-4 py-2 rounded-lg hover:opacity-90 transition"
-            title="Restablecer rutas / إعادة تعيين المسارات"
+            title="Restablecer rutas"
           >
             <RefreshCw size={18} />
             <span className="hidden md:inline">Reset</span>
@@ -57,7 +57,7 @@ const RoutesList = () => {
             className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:opacity-90 transition"
           >
             <Plus size={20} />
-            <span>إضافة مسار / Add Route</span>
+            <span>Añadir Ruta</span>
           </button>
         </div>
       </div>
@@ -82,21 +82,21 @@ const RoutesList = () => {
                 <button 
                   onClick={() => handleEdit(route)}
                   className="p-2 hover:bg-gray-100 rounded-lg transition"
-                  title="تعديل / Edit"
+                  title="Editar"
                 >
                   <Edit2 size={16} className="text-blue-600" />
                 </button>
                 <button 
                   onClick={() => handleDelete(route)}
                   className="p-2 hover:bg-gray-100 rounded-lg transition"
-                  title="حذف / Delete"
+                  title="Eliminar"
                 >
                   <Trash2 size={16} className="text-red-600" />
                 </button>
               </div>
             </div>
             <div className="mb-2">
-              <p className="text-xs text-gray-500 mb-1">العملاء / Clients:</p>
+              <p className="text-xs text-gray-500 mb-1">Clientes:</p>
               <div className="grid grid-cols-3 gap-1 max-h-48 overflow-y-auto">
                 {route.clients.map((client, i) => (
                   <span key={i} className="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded whitespace-nowrap text-center">

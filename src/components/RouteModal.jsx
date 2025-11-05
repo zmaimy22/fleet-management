@@ -41,12 +41,12 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
 
   const handleSave = () => {
     if (!formData.shortCode || !formData.plate) {
-      alert('يرجى ملء رمز المسار واللوحة');
+      alert('Por favor, complete el código de ruta y la matrícula');
       return;
     }
     const filteredClients = formData.clients.filter(c => c.trim() !== '');
     if (filteredClients.length === 0) {
-      alert('يرجى إضافة عميل واحد على الأقل');
+      alert('Por favor, añada al menos un cliente');
       return;
     }
     
@@ -64,7 +64,7 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
       <div className="bg-white rounded-lg p-6 w-full max-w-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-gray-800">
-            {route ? 'تعديل المسار / Edit Route' : 'إضافة مسار / Add Route'}
+            {route ? 'Editar Ruta' : 'Añadir Ruta'}
           </h3>
           <button
             onClick={onClose}
@@ -77,26 +77,26 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              رمز المسار / Route Code *
+              Código de Ruta *
             </label>
             <input
               type="text"
               value={formData.shortCode}
               onChange={(e) => setFormData({ ...formData, shortCode: e.target.value })}
-              placeholder="مثال: R1, R2.2, R14"
+              placeholder="Ejemplo: R1, R2.2, R14"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              لوحة الشاحنة / Truck Plate *
+              Matrícula del Camión *
             </label>
             <input
               type="text"
               value={formData.plate}
               onChange={(e) => setFormData({ ...formData, plate: e.target.value })}
-              placeholder="مثال: 2391MKG"
+              placeholder="Ejemplo: 2391MKG"
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -104,14 +104,14 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="block text-sm font-medium text-gray-700">
-                العملاء / Clients * (3 أعمدة)
+                Clientes * (3 columnas)
               </label>
               <button
                 onClick={addClient}
                 className="flex items-center gap-1 text-sm text-blue-600 hover:text-blue-700"
               >
                 <Plus size={16} />
-                إضافة عميل
+                Añadir Cliente
               </button>
             </div>
             <div className="grid grid-cols-3 gap-2 max-h-96 overflow-y-auto p-2 border border-gray-200 rounded-lg bg-gray-50">
@@ -128,7 +128,7 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
                     <button
                       onClick={() => removeClient(index)}
                       className="absolute right-1 top-1/2 -translate-y-1/2 p-1 text-red-600 hover:bg-red-50 rounded transition"
-                      title="حذف"
+                      title="Eliminar"
                     >
                       <Trash2 size={14} />
                     </button>
@@ -137,7 +137,7 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
               ))}
             </div>
             <p className="text-xs text-gray-500 mt-1">
-              إجمالي: {formData.clients.length} عميل
+              Total: {formData.clients.length} cliente{formData.clients.length !== 1 ? 's' : ''}
             </p>
           </div>
         </div>

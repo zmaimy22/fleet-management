@@ -42,7 +42,7 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
         <div className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              السائق / Driver
+              Conductor
             </label>
             <input
               type="text"

@@ -9,7 +9,7 @@ const Stats = ({ drivers, schedule }) => {
   
   const stats = [
     {
-      title: 'إجمالي السائقين / Total Drivers',
+      title: 'Total de Conductores',
       value: totalDrivers,
       icon: Users,
       color: 'from-blue-500 to-blue-600',
@@ -17,7 +17,7 @@ const Stats = ({ drivers, schedule }) => {
       textColor: 'text-blue-600'
     },
     {
-      title: 'المحملين / Loaders',
+      title: 'Cargadores',
       value: totalLoaders,
       icon: Truck,
       color: 'from-orange-500 to-orange-600',
@@ -25,7 +25,7 @@ const Stats = ({ drivers, schedule }) => {
       textColor: 'text-orange-600'
     },
     {
-      title: 'المسؤولين / Supervisors',
+      title: 'Supervisores',
       value: totalSupervisors,
       icon: Users,
       color: 'from-green-500 to-green-600',
@@ -33,7 +33,7 @@ const Stats = ({ drivers, schedule }) => {
       textColor: 'text-green-600'
     },
     {
-      title: 'أيام العمل / Working Days',
+      title: 'Días de Trabajo',
       value: 22,
       icon: Calendar,
       color: 'from-green-500 to-green-600',
@@ -41,7 +41,7 @@ const Stats = ({ drivers, schedule }) => {
       textColor: 'text-green-600'
     },
     {
-      title: 'عطل سنوية / Annual Leaves',
+      title: 'Vacaciones Anuales',
       value: 15,
       icon: TrendingUp,
       color: 'from-purple-500 to-purple-600',
@@ -49,7 +49,7 @@ const Stats = ({ drivers, schedule }) => {
       textColor: 'text-purple-600'
     },
     {
-      title: 'عطل مرضية / Sick Leaves',
+      title: 'Bajas por Enfermedad',
       value: 8,
       icon: AlertCircle,
       color: 'from-yellow-500 to-yellow-600',
@@ -57,7 +57,7 @@ const Stats = ({ drivers, schedule }) => {
       textColor: 'text-yellow-600'
     },
     {
-      title: 'مسارات نشطة / Active Routes',
+      title: 'Rutas Activas',
       value: 11,
       icon: CheckCircle,
       color: 'from-teal-500 to-teal-600',
@@ -68,7 +68,7 @@ const Stats = ({ drivers, schedule }) => {
 
   return (
     <div className="space-y-6">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">الإحصائيات / Statistics</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Estadísticas</h2>
       
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -96,18 +96,18 @@ const Stats = ({ drivers, schedule }) => {
       
       {/* Monthly Overview */}
       <div className="bg-white rounded-lg shadow-xl p-6">
-        <h3 className="text-xl font-bold text-gray-800 mb-4">نظرة عامة على نوفمبر / November Overview</h3>
+        <h3 className="text-xl font-bold text-gray-800 mb-4">Resumen de Noviembre</h3>
         <div className="space-y-4">
           <div className="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
-            <span className="text-gray-700">إجمالي أيام الشهر / Total Days</span>
+            <span className="text-gray-700">Días Totales del Mes</span>
             <span className="font-bold text-blue-600">30</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-green-50 rounded-lg">
-            <span className="text-gray-700">أيام العمل / Working Days</span>
+            <span className="text-gray-700">Días Laborables</span>
             <span className="font-bold text-green-600">22</span>
           </div>
           <div className="flex items-center justify-between p-4 bg-red-50 rounded-lg">
-            <span className="text-gray-700">عطل نهاية الأسبوع / Weekends</span>
+            <span className="text-gray-700">Fines de Semana</span>
             <span className="font-bold text-red-600">8</span>
           </div>
         </div>

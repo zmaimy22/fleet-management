@@ -558,7 +558,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                   mobileView ? 'p-2 w-[120px] text-xs' : 'p-3 w-[200px] text-sm'
                 }`}>
                   <span className="flex items-center gap-2">
-                    {mobileView ? '👤' : '👤 السائق / Driver'}
+                    {mobileView ? '👤' : '👤 Conductor'}
                   </span>
                 </th>
                 {days.map(day => (
