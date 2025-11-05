@@ -510,10 +510,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       
       {/* Mobile Week Navigation */}
       {mobileView && (
-        <div 
-          className="fixed left-0 right-0 z-[9999] bg-gradient-to-r from-purple-50 to-blue-50 px-4 py-3 border-b-2 border-purple-200 shadow-lg backdrop-blur-md bg-opacity-95 transition-all duration-200"
-          style={{ top: `${headerHeight || 0}px` }}
-        >
+        <div className="bg-gradient-to-r from-blue-50 to-purple-50 px-4 py-3 border-b-2 border-blue-200 sticky top-0 z-50">
           <div className="flex items-center justify-between max-w-md mx-auto">
             <button
               onClick={() => setWeekOffset(Math.max(0, weekOffset - 1))}
@@ -552,10 +549,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       )}
       
       {/* Calendar Grid */}
-      <div 
-        className="overflow-x-auto max-w-full relative transition-all duration-200"
-        style={mobileView ? { marginTop: `${(headerHeight || 0) + 60}px` } : {}}
-      >
+      <div className="overflow-x-auto max-w-full relative">
         <div className="inline-block min-w-full">
           <table className="border-collapse w-full">
             <thead>
