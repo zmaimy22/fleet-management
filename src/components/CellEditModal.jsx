@@ -29,7 +29,7 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
       <div className="bg-white rounded-lg p-6 w-full max-w-md shadow-2xl">
         <div className="flex items-center justify-between mb-6">
           <h3 className="text-xl font-bold text-gray-800">
-            تعديل الجدول / Edit Schedule
+            Editar Horario
           </h3>
           <button
             onClick={onClose}
@@ -54,7 +54,7 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              اليوم / Day
+              Día
             </label>
             <input
               type="text"
@@ -66,24 +66,24 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              النوع / Type
+              Tipo
             </label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
               className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
             >
-              <option value="work">عمل / Work</option>
-              <option value="weekend">عطلة أسبوعية / Weekend</option>
-              <option value="vacation">عطلة سنوية / Vacation</option>
-              <option value="sick">عطلة مرضية / Sick Leave</option>
+              <option value="work">Trabajo</option>
+              <option value="weekend">Fin de Semana</option>
+              <option value="vacation">Vacación</option>
+              <option value="sick">Baja por Enfermedad</option>
             </select>
           </div>
 
           <div>
             <div className="flex items-center justify-between mb-2">
               <label className="block text-sm font-medium text-gray-700">
-                القيمة / Value
+                Valor
               </label>
               {type === 'work' && (
                 <button
@@ -102,9 +102,9 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
                   onChange={(e) => setValue(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="">اختر / Select</option>
-                  <option value="CT">CT - صباحي / Morning</option>
-                  <option value="CM">CM - مسائي / Evening</option>
+                  <option value="">Seleccionar</option>
+                  <option value="CT">CT - Mañana</option>
+                  <option value="CM">CM - Tarde</option>
                   <option value="CP/dt">CP/dt - Descanso</option>
                   <option value="GT">GT - Gran Turismo</option>
                   <option value="P">P - Particular</option>
@@ -115,7 +115,7 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
                   onChange={(e) => setValue(e.target.value)}
                   className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                 >
-                  <option value="">اختر مسار / Seleccionar ruta</option>
+                  <option value="">Seleccionar ruta</option>
                   {routeCodes.map(code => (
                     <option key={code} value={code}>{code}</option>
                   ))}
@@ -195,7 +195,7 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
           <button
             onClick={() => {setValue(''); setType('work');}}
             className="px-4 py-3 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition flex items-center gap-2"
-            title="Limpiar / مسح"
+            title="Limpiar"
           >
             <Trash2 size={18} />
           </button>
@@ -204,7 +204,7 @@ const CellEditModal = ({ isOpen, onClose, driver, day, cellData, onSave }) => {
             className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:opacity-90 transition shadow-lg"
           >
             <Save size={20} />
-            <span>💾 Guardar / حفظ</span>
+            <span>💾 Guardar</span>
           </button>
           <button
             onClick={onClose}

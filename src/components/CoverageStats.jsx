@@ -98,9 +98,9 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
         <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Cobertura Total / التغطية الكلية</p>
+              <p className="text-sm text-gray-600 font-medium">Cobertura Total</p>
               <p className="text-4xl font-bold text-blue-600">{stats.totalCoverage}%</p>
-              <p className="text-xs text-gray-500 mt-1">{totalRoutes} rutas / مسار</p>
+              <p className="text-xs text-gray-500 mt-1">{totalRoutes} rutas</p>
             </div>
             <div className="bg-blue-100 p-3 rounded-full">
               <CheckCircle size={32} className="text-blue-600" />
@@ -111,7 +111,7 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
         <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-green-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Días Completos / أيام كاملة</p>
+              <p className="text-sm text-gray-600 font-medium">Días Completos</p>
               <p className="text-4xl font-bold text-green-600">{stats.complete}</p>
               <p className="text-xs text-gray-500 mt-1">100%</p>
             </div>
@@ -124,7 +124,7 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
         <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-orange-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Días Parciales / أيام جزئية</p>
+              <p className="text-sm text-gray-600 font-medium">Días Parciales</p>
               <p className="text-4xl font-bold text-orange-600">{stats.partial}</p>
               <p className="text-xs text-gray-500 mt-1">1-99%</p>
             </div>
@@ -137,7 +137,7 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
         <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-red-200">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-gray-600 font-medium">Días Sin Cubrir / أيام فارغة</p>
+              <p className="text-sm text-gray-600 font-medium">Días Sin Cubrir</p>
               <p className="text-4xl font-bold text-red-600">{stats.empty}</p>
               <p className="text-xs text-gray-500 mt-1">0%</p>
             </div>
@@ -152,7 +152,6 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
       <div className="bg-white rounded-xl p-6 shadow-lg">
         <h2 className="text-2xl font-bold mb-6 text-gray-800">
           Cobertura Diaria - {monthNamesES[currentMonth]} {currentYear}
-          <span className="text-lg text-gray-600 mr-2">/ التغطية اليومية</span>
         </h2>
         
         <div className="grid grid-cols-5 md:grid-cols-10 gap-3">
@@ -175,7 +174,7 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
       
       {/* Legend */}
       <div className="bg-white rounded-xl p-6 shadow-lg">
-        <h3 className="text-lg font-bold mb-4 text-gray-800">Leyenda / المفتاح / Legend</h3>
+        <h3 className="text-lg font-bold mb-4 text-gray-800">Leyenda</h3>
         <div className="flex flex-wrap gap-4">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-green-200 border-2 border-green-400 rounded"></div>
@@ -202,7 +201,6 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold text-gray-800">
               Detalles del día {selectedDay} de {monthNamesES[currentMonth]}
-              <span className="text-lg text-gray-600 mr-2"> / تفاصيل يوم {selectedDay}</span>
             </h3>
             <button
               onClick={() => setSelectedDay(null)}
@@ -221,7 +219,7 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
                 {uncovered.length > 0 && (
                   <div>
                     <h4 className="text-lg font-bold text-red-600 mb-3 flex items-center gap-2">
-                      ⚠️ Turnos Sin Cubrir / مسارات غير مغطاة ({uncovered.length})
+                      ⚠️ Turnos Sin Cubrir ({uncovered.length})
                     </h4>
                     <div className="flex flex-wrap gap-2">
                       {uncovered.map(route => (
@@ -239,7 +237,7 @@ const CoverageStats = ({ drivers, schedule, currentMonth, currentYear }) => {
                 {/* Covered Routes */}
                 <div>
                   <h4 className="text-lg font-bold text-green-700 mb-3">
-                    Turnos Cubiertos / مسارات مغطاة ({covered.length}/{totalRoutes})
+                    Turnos Cubiertos ({covered.length}/{totalRoutes})
                   </h4>
                   <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
                     {routeCodes.map(route => {

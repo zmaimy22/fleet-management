@@ -43,9 +43,9 @@ const DriversList = () => {
   };
 
   const handleReset = () => {
-    if (confirm('¿Restablecer todos los conductores a los valores predeterminados? / إعادة تعيين جميع السائقين؟')) {
+    if (confirm('¿Restablecer todos los conductores a los valores predeterminados?')) {
       resetToDefaults();
-      alert('Conductores restablecidos / تم إعادة تعيين السائقين');
+      alert('Conductores restablecidos');
     }
   };
 

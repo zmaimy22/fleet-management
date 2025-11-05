@@ -68,11 +68,6 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
   const currentWeek = weekOffset + 1;
   
   const monthNames = [
-    'يناير', 'فبراير', 'مارس', 'أبريل', 'مايو', 'يونيو',
-    'يوليو', 'أغسطس', 'سبتمبر', 'أكتوبر', 'نوفمبر', 'ديسمبر'
-  ];
-
-  const monthNamesES = [
     'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
     'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
   ];
@@ -140,10 +135,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       workbook.creator = 'Fleet Management System';
       workbook.created = new Date();
       
-      const worksheet = workbook.addWorksheet(`${monthNamesES[currentMonth]} ${currentYear}`);
+      const worksheet = workbook.addWorksheet(`${monthNames[currentMonth]} ${currentYear}`);
       
       // Add header row
-      const headerRow = worksheet.addRow(['CONDUCTOR / السائق', ...Array.from({length: days}, (_, i) => i + 1)]);
+      const headerRow = worksheet.addRow(['CONDUCTOR', ...Array.from({length: days}, (_, i) => i + 1)]);
       headerRow.height = 20;
       headerRow.eachCell((cell) => {
         cell.font = { bold: true, size: 11, color: { argb: 'FFFFFFFF' } };
@@ -277,11 +272,11 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       window.URL.revokeObjectURL(url);
       
       // Success message
-      alert(`✅ تم تصدير التقويم بنجاح! / Calendario exportado exitosamente!\n\n📁 ${fileName}\n👥 ${drivers.length} conductores\n🎨 Con colores completos / مع ألوان كاملة\n\n✔️ DONE / تم`);
+      alert(`✅ ¡Calendario exportado exitosamente!\n\n📁 ${fileName}\n👥 ${drivers.length} conductores\n🎨 Con colores completos\n\n✔️ HECHO`);
       
     } catch (error) {
       console.error('Error exporting to Excel:', error);
-      alert(`❌ خطأ في التصدير!\nError al exportar!\n\n${error.message}`);
+      alert(`❌ ¡Error al exportar!\n\n${error.message}`);
     }
   };
   
@@ -320,7 +315,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             mobileView ? 'p-2 text-xs' : 'p-3 text-sm'
           }`}
           onClick={(e) => handleDriverClick(driver, e)}
-          title="Clic para editar conductor / انقر لتعديل السائق"
+          title="Clic para editar conductor"
         >
           <span className="flex items-center gap-2 justify-between">
             <span className="flex items-center gap-1">
@@ -361,7 +356,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             className={`hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
               mobileView ? 'p-2' : 'p-3'
             }`}
-            title={t('prevMonth') || 'الشهر السابق / Previous month'}
+            title="Mes Anterior"
           >
             <ChevronLeft size={mobileView ? 20 : 28} className="drop-shadow-lg" />
           </button>
@@ -373,7 +368,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
               }`}
             >
               <CalendarIcon size={mobileView ? 20 : 28} className="drop-shadow-lg" />
-              <span className="drop-shadow-lg">{monthNamesES[currentMonth]} {currentYear}</span>
+              <span className="drop-shadow-lg">{monthNames[currentMonth]} {currentYear}</span>
             </button>
             {showMonthPicker && availableMonths.length > 0 && (
               <div className="fixed inset-0 z-[9999] bg-black/30 backdrop-blur-sm" onClick={() => setShowMonthPicker(false)}>
@@ -386,11 +381,11 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                     <h4 className="font-bold text-lg flex items-center justify-center gap-3">
                       <CalendarIcon size={24} className="drop-shadow-lg" />
                       <span className="drop-shadow-lg">
-                        {t('availableCalendars') || 'التقويمات المتاحة'}
+                        Calendarios Disponibles
                       </span>
                     </h4>
                     <p className="text-white/80 text-sm text-center mt-1">
-                      {t('selectMonthToView') || 'اختر الشهر للعرض'}
+                      Selecciona un mes para visualizar
                     </p>
                   </div>
 
@@ -413,11 +408,11 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                             <CalendarIcon size={20} className={isActive ? 'text-white' : 'text-purple-500'} />
                             <div className="flex-1">
                               <div className={`font-bold ${isActive ? 'text-white' : 'text-gray-800'}`}>
-                                {monthNamesES[month]} {year}
+                                {monthNames[month]} {year}
                               </div>
                               {isActive && (
                                 <div className="text-xs text-white/90 mt-0.5">
-                                  {t('currentMonth') || 'الشهر الحالي'}
+                                  Mes Actual
                                 </div>
                               )}
                             </div>
@@ -434,7 +429,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                       onClick={() => setShowMonthPicker(false)}
                       className="text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
                     >
-                      {t('close') || 'إغلاق'} ✕
+                      Cerrar ✕
                     </button>
                   </div>
                 </div>
@@ -447,7 +442,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                 href="/schedule_template.csv"
                 download
                 className="px-4 py-2.5 bg-white/10 hover:bg-white/25 rounded-lg text-sm font-medium backdrop-blur-sm transition-all duration-200 hover:scale-105 active:scale-95 shadow-lg hover:shadow-xl"
-                title="تنزيل القالب / Download template"
+                title="Descargar Plantilla"
               >
                 📥 Download
               </a>
@@ -501,7 +496,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             className={`hover:bg-white/20 rounded-xl transition-all duration-200 hover:scale-110 active:scale-95 backdrop-blur-sm shadow-lg ${
               mobileView ? 'p-2' : 'p-3'
             }`}
-            title={t('nextMonth') || 'الشهر التالي / Next month'}
+            title="Mes Siguiente"
           >
             <ChevronRight size={mobileView ? 20 : 28} className="drop-shadow-lg" />
           </button>
@@ -526,10 +521,10 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             
             <div className="text-center">
               <p className="text-sm font-bold text-purple-700">
-                📅 أسبوع {currentWeek} من {totalWeeks}
+                📅 Semana {currentWeek} de {totalWeeks}
               </p>
               <p className="text-xs text-gray-600">
-                {days[0]} - {days[days.length - 1]} {monthNamesES[currentMonth]}
+                {days[0]} - {days[days.length - 1]} {monthNames[currentMonth]}
               </p>
             </div>
             
@@ -578,7 +573,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                   <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-yellow-300 ${
                     mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
                   }`}>
-                    {mobileView ? '🚢 Lanzarote' : '🚢 Rutas a Lanzarote / المسارات إلى Lanzarote'} ({lanzaroteDrivers.length})
+                    {mobileView ? '😢 Lanzarote' : '😢 Rutas a Lanzarote'} ({lanzaroteDrivers.length})
                   </td>
                 </tr>
                 {renderDriverRows(lanzaroteDrivers, 0)}
@@ -592,7 +587,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                   <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-gray-300 ${
                     mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
                   }`}>
-                    {mobileView ? '☀️ Local Mañana' : '☀️ Rutas Locales Mañana / المسارات المحلية صباحاً'} ({localMorningDrivers.length})
+                    {mobileView ? '☀️ Local Mañana' : '☀️ Rutas Locales Mañana'} ({localMorningDrivers.length})
                   </td>
                 </tr>
                 {renderDriverRows(localMorningDrivers, lanzaroteDrivers.length)}
@@ -606,7 +601,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                   <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-gray-300 ${
                     mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
                   }`}>
-                    {mobileView ? '🌙 Local Noche' : '🌙 Rutas Locales Noche / المسارات المحلية ليلاً'} ({localNightDrivers.length})
+                    {mobileView ? '🌙 Local Noche' : '🌙 Rutas Locales Noche'} ({localNightDrivers.length})
                   </td>
                 </tr>
                 {renderDriverRows(localNightDrivers, lanzaroteDrivers.length + localMorningDrivers.length)}
@@ -620,7 +615,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
                   <td colSpan={days.length + 1} className={`sticky left-0 z-[5] font-bold text-gray-800 text-center border-2 border-green-300 ${
                     mobileView ? 'p-1.5 text-xs' : 'p-2 text-sm'
                   }`}>
-                    {mobileView ? '👥 Personal' : '👥 Personal / الموظفون'} ({otherStaff.length})
+                    {mobileView ? '👥 Personal' : '👥 Personal'} ({otherStaff.length})
                   </td>
                 </tr>
                 {renderDriverRows(otherStaff, lanzaroteDrivers.length + localMorningDrivers.length + localNightDrivers.length)}
@@ -635,24 +630,24 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
       <div className="p-6 bg-gradient-to-r from-gray-50 to-gray-100 border-t-2 border-gray-200">
         <h3 className="font-bold mb-4 text-gray-800 flex items-center gap-2 text-lg">
           <span className="text-2xl">ℹ️</span>
-          المفتاح / Legend:
+          Leyenda:
         </h3>
         <div className="flex flex-wrap gap-4">
           <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105">
             <div className="w-8 h-8 bg-gradient-to-br from-red-500 to-red-600 rounded-lg shadow-md"></div>
-            <span className="text-sm font-medium">عطلة أسبوعية / Weekend</span>
+            <span className="text-sm font-medium">Fin de Semana</span>
           </div>
           <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105">
             <div className="w-8 h-8 bg-gradient-to-br from-yellow-300 to-yellow-400 rounded-lg shadow-md"></div>
-            <span className="text-sm font-medium">عطلة سنوية (V) / Annual Leave</span>
+            <span className="text-sm font-medium">Vacación Anual (V)</span>
           </div>
           <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105">
             <div className="w-8 h-8 bg-gradient-to-br from-yellow-200 to-yellow-300 rounded-lg shadow-md"></div>
-            <span className="text-sm font-medium">عطلة مرضية (Baja) / Sick Leave</span>
+            <span className="text-sm font-medium">Baja por Enfermedad (Baja)</span>
           </div>
           <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105">
             <div className="w-8 h-8 bg-gradient-to-br from-orange-400 to-orange-500 rounded-lg shadow-md"></div>
-            <span className="text-sm font-medium">مسؤول الشحن (CT/CM) / Loader</span>
+            <span className="text-sm font-medium">Cargador (CT/CM)</span>
           </div>
           <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105">
             <div className="w-8 h-8 bg-purple-500 rounded-lg shadow-md"></div>
@@ -664,7 +659,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
           </div>
           <div className="flex items-center gap-2 px-3 py-2 bg-white rounded-lg shadow-sm hover:shadow-md transition-all hover:scale-105">
             <div className="w-8 h-8 bg-gray-200 border-2 border-gray-400 rounded-lg shadow-md"></div>
-            <span className="text-sm font-medium">مسار عمل / Route</span>
+            <span className="text-sm font-medium">Ruta de Trabajo</span>
           </div>
         </div>
       </div>

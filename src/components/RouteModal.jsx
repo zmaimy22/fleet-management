@@ -148,13 +148,13 @@ const RouteModal = ({ isOpen, onClose, route, onSave }) => {
             className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-lg hover:opacity-90 transition"
           >
             <Save size={20} />
-            <span>حفظ / Save</span>
+            <span>Guardar</span>
           </button>
           <button
             onClick={onClose}
             className="flex-1 px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-50 transition"
           >
-            إلغاء / Cancel
+            Cancelar
           </button>
         </div>
       </div>
