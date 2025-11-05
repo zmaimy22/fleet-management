@@ -43,7 +43,20 @@ table {
   table-layout: fixed;
 }
 
-@media (max-width: 1920px) {
+/* Responsive font sizes */
+@media (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1920px) {
   html {
     font-size: 14px;
   }
@@ -52,6 +65,18 @@ table {
 @media (min-width: 1921px) {
   html {
     font-size: 16px;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  body {
+    min-width: 100%;
+    overflow-x: hidden;
+  }
+  
+  #root {
+    overflow-x: hidden;
   }
 }
 

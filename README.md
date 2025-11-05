@@ -41,6 +41,26 @@ Sistema de gestión integral diseñado específicamente para **ILUNION** que per
 
 ---
 
+## 📱 Soporte para Móviles (Nuevo)
+
+El sistema ahora es **totalmente responsive** y funciona perfectamente en:
+
+- ✅ **Smartphones** (iPhone, Android) - 375px+
+- ✅ **Tablets** (iPad, Android Tablets) - 768px+  
+- ✅ **Laptops** - 1024px+
+- ✅ **Pantallas grandes** - 1920px+
+
+### Características móviles:
+- **Menú hamburguesa** que se expande/colapsa
+- **Navegación táctil** optimizada
+- **Texto escalable** según el dispositivo
+- **Botones grandes** para fácil acceso táctil
+- **Selector de idioma** adaptativo
+
+📖 **Documentación completa:** Ver `MOBILE_SUPPORT.md`
+
+---
+
 ## ✨ Características
 
 ### 📅 Gestión de Calendario
@@ -288,6 +308,7 @@ fleet-management/
 ├── 📄 INSTALACION.md                # Guía detallada de instalación
 ├── 📄 COMANDOS_GIT.txt              # Comandos Git útiles
 ├── 📄 RUTAS_RELACIONADAS.md         # 🔗 Documentación de rutas relacionadas
+├── 📄 MOBILE_SUPPORT.md             # 📱 Documentación de soporte móvil (NUEVO)
 └── 📄 README.md                     # Este archivo
 ```
 
@@ -396,6 +417,7 @@ Para hacer copia de seguridad:
 - [x] Gestión completa de conductores
 - [x] **Sistema de solicitudes de vacaciones anuales** 🌴 (Nuevo - Nov 2025)
 - [x] **Sistema de rutas relacionadas** 🔗 (R1+R1.1 = mismo conductor) (Nuevo - Nov 2025)
+- [x] **Soporte completo para móviles** 📱 (Responsive Design) (Nuevo - Nov 2025)
 - [x] Interfaz trilingüe
 - [x] Edición manual de celdas
 
