@@ -112,7 +112,44 @@ export const translations = {
     
     // Footer
     allRightsReserved: 'Todos los derechos reservados',
-    fleetManagement: 'Sistema de Gestión de Flotas'
+    fleetManagement: 'Sistema de Gestión de Flotas',
+    
+    // Vacation Requests
+    vacationRequests: 'Solicitudes de Vacaciones',
+    manageVacationRequests: 'Gestiona las solicitudes de vacaciones anuales',
+    newRequest: 'Nueva Solicitud',
+    totalRequests: 'Total Solicitudes',
+    pending: 'Pendiente',
+    approved: 'Aprobada',
+    rejected: 'Rechazada',
+    totalDaysApproved: 'Días Aprobados',
+    filterByStatus: 'Filtrar por Estado',
+    filterByYear: 'Filtrar por Año',
+    startDate: 'Fecha Inicio',
+    endDate: 'Fecha Fin',
+    days: 'Días',
+    reason: 'Motivo',
+    status: 'Estado',
+    actions: 'Acciones',
+    noRequestsFound: 'No se encontraron solicitudes',
+    approve: 'Aprobar',
+    reject: 'Rechazar',
+    newVacationRequest: 'Nueva Solicitud de Vacaciones',
+    selectDriver: 'Seleccionar Conductor',
+    totalDays: 'Total de Días',
+    reasonPlaceholder: 'Ej: Vacaciones familiares',
+    notes: 'Notas',
+    notesPlaceholder: 'Información adicional...',
+    submit: 'Enviar',
+    pleaseFillAllFields: 'Por favor completa todos los campos obligatorios',
+    
+    // Related Routes
+    relatedRoutes: 'Rutas Relacionadas',
+    sameDriver: 'Mismo Conductor',
+    routeGroup: 'Grupo de Rutas',
+    mainRoute: 'Ruta Principal',
+    secondaryRoute: 'Ruta Secundaria',
+    driverHandlesBoth: 'El conductor maneja ambas rutas'
   },
   ar: {
     // Navbar
@@ -227,7 +264,44 @@ export const translations = {
     
     // Footer
     allRightsReserved: 'جميع الحقوق محفوظة',
-    fleetManagement: 'نظام إدارة الأسطول'
+    fleetManagement: 'نظام إدارة الأسطول',
+    
+    // Vacation Requests
+    vacationRequests: 'طلبات الإجازات',
+    manageVacationRequests: 'إدارة طلبات الإجازات السنوية',
+    newRequest: 'طلب جديد',
+    totalRequests: 'إجمالي الطلبات',
+    pending: 'قيد الانتظار',
+    approved: 'موافق عليها',
+    rejected: 'مرفوضة',
+    totalDaysApproved: 'الأيام الموافق عليها',
+    filterByStatus: 'تصفية حسب الحالة',
+    filterByYear: 'تصفية حسب السنة',
+    startDate: 'تاريخ البداية',
+    endDate: 'تاريخ النهاية',
+    days: 'أيام',
+    reason: 'السبب',
+    status: 'الحالة',
+    actions: 'الإجراءات',
+    noRequestsFound: 'لا توجد طلبات',
+    approve: 'موافقة',
+    reject: 'رفض',
+    newVacationRequest: 'طلب إجازة جديد',
+    selectDriver: 'اختر السائق',
+    totalDays: 'إجمالي الأيام',
+    reasonPlaceholder: 'مثال: إجازة عائلية',
+    notes: 'ملاحظات',
+    notesPlaceholder: 'معلومات إضافية...',
+    submit: 'إرسال',
+    pleaseFillAllFields: 'يرجى ملء جميع الحقول المطلوبة',
+    
+    // Related Routes
+    relatedRoutes: 'المسارات المرتبطة',
+    sameDriver: 'نفس السائق',
+    routeGroup: 'مجموعة مسارات',
+    mainRoute: 'المسار الرئيسي',
+    secondaryRoute: 'المسار الثانوي',
+    driverHandlesBoth: 'السائق يتولى كلا المسارين'
   },
   en: {
     // Navbar
@@ -342,7 +416,44 @@ export const translations = {
     
     // Footer
     allRightsReserved: 'All rights reserved',
-    fleetManagement: 'Fleet Management System'
+    fleetManagement: 'Fleet Management System',
+    
+    // Vacation Requests
+    vacationRequests: 'Vacation Requests',
+    manageVacationRequests: 'Manage annual vacation requests',
+    newRequest: 'New Request',
+    totalRequests: 'Total Requests',
+    pending: 'Pending',
+    approved: 'Approved',
+    rejected: 'Rejected',
+    totalDaysApproved: 'Days Approved',
+    filterByStatus: 'Filter by Status',
+    filterByYear: 'Filter by Year',
+    startDate: 'Start Date',
+    endDate: 'End Date',
+    days: 'Days',
+    reason: 'Reason',
+    status: 'Status',
+    actions: 'Actions',
+    noRequestsFound: 'No requests found',
+    approve: 'Approve',
+    reject: 'Reject',
+    newVacationRequest: 'New Vacation Request',
+    selectDriver: 'Select Driver',
+    totalDays: 'Total Days',
+    reasonPlaceholder: 'E.g: Family vacation',
+    notes: 'Notes',
+    notesPlaceholder: 'Additional information...',
+    submit: 'Submit',
+    pleaseFillAllFields: 'Please fill in all required fields',
+    
+    // Related Routes
+    relatedRoutes: 'Related Routes',
+    sameDriver: 'Same Driver',
+    routeGroup: 'Route Group',
+    mainRoute: 'Main Route',
+    secondaryRoute: 'Secondary Route',
+    driverHandlesBoth: 'Driver handles both routes'
   }
 };
 

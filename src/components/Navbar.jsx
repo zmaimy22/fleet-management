@@ -1,5 +1,5 @@
 import React from 'react';
-import { Truck, Users, Calendar, BarChart3, Settings, Globe, CheckCircle } from 'lucide-react';
+import { Truck, Users, Calendar, BarChart3, Settings, Globe, CheckCircle, Palmtree } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage.jsx';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
@@ -8,6 +8,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
   const tabs = [
     { id: 'calendar', name: t('calendar'), icon: Calendar },
     { id: 'coverage', name: 'Cobertura', icon: CheckCircle },
+    { id: 'vacations', name: t('vacationRequests'), icon: Palmtree },
     { id: 'drivers', name: t('drivers'), icon: Users },
     { id: 'routes', name: t('routes'), icon: Truck },
     { id: 'stats', name: t('stats'), icon: BarChart3 },
@@ -36,8 +37,8 @@ const Navbar = ({ activeTab, setActiveTab }) => {
                   onClick={() => setActiveTab(tab.id)}
                   className={`flex items-center gap-2 px-4 py-2 rounded-lg transition ${
                     activeTab === tab.id
-                      ? 'bg-gradient-to-r from-blue-600 to-purple-600 text-white'
-                      : 'text-gray-700 hover:bg-gray-100'
+                      ? 'bg-white text-blue-600 shadow-lg'
+                      : 'text-white hover:bg-white/20'
                   }`}
                 >
                   <Icon size={20} />

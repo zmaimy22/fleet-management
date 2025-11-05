@@ -8,6 +8,7 @@ import RoutesList from './components/RoutesList';
 import Stats from './components/Stats';
 import CoverageStats from './components/CoverageStats';
 import CellEditModal from './components/CellEditModal';
+import VacationRequests from './components/VacationRequests';
 import { scheduleData } from './data/drivers';
 import { useRoutes } from './hooks/useRoutes';
 import { useDrivers } from './hooks/useDrivers';
@@ -367,6 +368,8 @@ function App() {
             currentYear={currentYear}
           />
         );
+      case 'vacations':
+        return <VacationRequests />;
       case 'drivers':
         return <DriversList />;
       case 'routes':

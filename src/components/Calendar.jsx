@@ -285,7 +285,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
     return driversList.map((driver, idx) => (
       <tr key={driver.id} className={`${(startIdx + idx) % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'} hover:bg-blue-50/30 transition-colors duration-150`}>
         <td 
-          className="sticky left-0 z-10 border-2 border-gray-300 p-3 font-semibold bg-gradient-to-r from-gray-100 to-gray-50 text-sm text-gray-800 shadow-sm cursor-pointer hover:bg-blue-100 transition-colors group"
+          className="sticky left-0 z-[5] border-2 border-gray-300 p-3 font-semibold bg-gradient-to-r from-gray-100 to-gray-50 text-sm text-gray-800 shadow-sm cursor-pointer hover:bg-blue-100 transition-colors group"
           onClick={(e) => handleDriverClick(driver, e)}
           title="Clic para editar conductor / انقر لتعديل السائق"
         >
@@ -328,45 +328,76 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
           >
             <ChevronLeft size={28} className="drop-shadow-lg" />
           </button>
-          <div className="relative z-50">
+          <div className="relative z-[50]">
             <button
               onClick={() => setShowMonthPicker(!showMonthPicker)}
-              className="text-2xl font-bold hover:bg-white/20 px-6 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 backdrop-blur-sm hover:scale-105 active:scale-95 shadow-lg"
+              className="text-2xl font-bold hover:bg-white/20 px-6 py-3 rounded-xl transition-all duration-200 flex items-center gap-3 backdrop-blur-sm hover:scale-105 active:scale-95 shadow-lg relative z-[9998]"
             >
               <CalendarIcon size={28} className="drop-shadow-lg" />
               <span className="drop-shadow-lg">{monthNamesES[currentMonth]} {currentYear}</span>
             </button>
             {showMonthPicker && availableMonths.length > 0 && (
-              <div className="fixed inset-0 z-[100]" onClick={() => setShowMonthPicker(false)}>
+              <div className="fixed inset-0 z-[9999] bg-black/30 backdrop-blur-sm" onClick={() => setShowMonthPicker(false)}>
                 <div 
-                  className="absolute left-1/2 top-24 -translate-x-1/2 bg-white text-gray-800 rounded-xl shadow-2xl p-4 min-w-[280px] border border-gray-200 animate-fadeIn"
+                  className="absolute left-1/2 top-28 -translate-x-1/2 bg-white text-gray-800 rounded-2xl shadow-2xl p-6 min-w-[360px] max-w-[400px] border-2 border-purple-200 animate-fadeIn z-[10000]"
                   onClick={(e) => e.stopPropagation()}
                 >
-                <h4 className="font-bold mb-3 text-sm text-gray-600 flex items-center gap-2">
-                  <CalendarIcon size={16} />
-                  {t('availableCalendars') || 'التقويمات المتاحة'}:
-                </h4>
-                <div className="space-y-2 max-h-60 overflow-y-auto">
-                  {availableMonths.map(monthKey => {
-                    const [year, month] = monthKey.split('-').map(Number);
-                    return (
-                      <button
-                        key={monthKey}
-                        onClick={() => handleSelectMonth(monthKey)}
-                        className={`w-full text-left px-4 py-2.5 rounded-lg hover:bg-gradient-to-r hover:from-blue-50 hover:to-purple-50 text-sm transition-all duration-200 transform hover:scale-105 hover:shadow-md ${
-                          year === currentYear && month === currentMonth 
-                            ? 'bg-gradient-to-r from-blue-100 to-purple-100 font-bold text-blue-700 shadow-sm border-l-4 border-blue-500' 
-                            : 'hover:translate-x-1'
-                        }`}
-                      >
-                        <span className="flex items-center gap-2">
-                          {year === currentYear && month === currentMonth && <span className="text-blue-500">▶</span>}
-                          {monthNamesES[month]} {year}
-                        </span>
-                      </button>
-                    );
-                  })}
-                </div>
+                  {/* Header */}
+                  <div className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-5 py-4 -mx-6 -mt-6 rounded-t-2xl mb-5">
+                    <h4 className="font-bold text-lg flex items-center justify-center gap-3">
+                      <CalendarIcon size={24} className="drop-shadow-lg" />
+                      <span className="drop-shadow-lg">
+                        {t('availableCalendars') || 'التقويمات المتاحة'}
+                      </span>
+                    </h4>
+                    <p className="text-white/80 text-sm text-center mt-1">
+                      {t('selectMonthToView') || 'اختر الشهر للعرض'}
+                    </p>
+                  </div>
+
+                  {/* Month List */}
+                  <div className="space-y-2.5 max-h-72 overflow-y-auto pr-2 custom-scrollbar">
+                    {availableMonths.map(monthKey => {
+                      const [year, month] = monthKey.split('-').map(Number);
+                      const isActive = year === currentYear && month === currentMonth;
+                      return (
+                        <button
+                          key={monthKey}
+                          onClick={() => handleSelectMonth(monthKey)}
+                          className={`w-full text-left px-5 py-3.5 rounded-xl transition-all duration-200 transform hover:scale-[1.02] font-medium text-base shadow-sm hover:shadow-lg ${
+                            isActive
+                              ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white font-bold shadow-md scale-[1.02] border-2 border-blue-400' 
+                              : 'bg-gradient-to-r from-gray-50 to-gray-100 hover:from-blue-50 hover:to-purple-50 text-gray-700 border-2 border-transparent hover:border-purple-200'
+                          }`}
+                        >
+                          <div className="flex items-center gap-3">
+                            <CalendarIcon size={20} className={isActive ? 'text-white' : 'text-purple-500'} />
+                            <div className="flex-1">
+                              <div className={`font-bold ${isActive ? 'text-white' : 'text-gray-800'}`}>
+                                {monthNamesES[month]} {year}
+                              </div>
+                              {isActive && (
+                                <div className="text-xs text-white/90 mt-0.5">
+                                  {t('currentMonth') || 'الشهر الحالي'}
+                                </div>
+                              )}
+                            </div>
+                            {isActive && <span className="text-xl">✓</span>}
+                          </div>
+                        </button>
+                      );
+                    })}
+                  </div>
+
+                  {/* Footer */}
+                  <div className="mt-5 pt-4 border-t border-gray-200 text-center">
+                    <button
+                      onClick={() => setShowMonthPicker(false)}
+                      className="text-gray-500 hover:text-gray-700 text-sm font-medium transition-colors"
+                    >
+                      {t('close') || 'إغلاق'} ✕
+                    </button>
+                  </div>
                 </div>
               </div>
             )}
@@ -429,7 +460,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
           <table className="border-collapse w-full">
             <thead>
               <tr className="bg-gradient-to-r from-gray-50 to-gray-100">
-                <th className="sticky left-0 z-10 bg-gradient-to-r from-gray-100 to-gray-50 border-2 border-gray-300 p-3 w-[200px] text-right text-sm font-bold text-gray-700 shadow-sm">
+                <th className="sticky left-0 z-[5] bg-gradient-to-r from-gray-100 to-gray-50 border-2 border-gray-300 p-3 w-[200px] text-right text-sm font-bold text-gray-700 shadow-sm">
                   <span className="flex items-center gap-2">
                     👤 السائق / Driver
                   </span>
@@ -446,7 +477,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {lanzaroteDrivers.length > 0 && (
               <>
                 <tr className="bg-yellow-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-10 p-2 font-bold text-gray-800 text-center border-2 border-yellow-300">
+                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-yellow-300">
                     🚢 Rutas a Lanzarote / المسارات إلى Lanzarote ({lanzaroteDrivers.length} conductores)
                   </td>
                 </tr>
@@ -458,7 +489,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {localMorningDrivers.length > 0 && (
               <>
                 <tr className="bg-gray-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-10 p-2 font-bold text-gray-800 text-center border-2 border-gray-300">
+                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-gray-300">
                     ☀️ Rutas Locales Mañana / المسارات المحلية صباحاً ({localMorningDrivers.length} conductores)
                   </td>
                 </tr>
@@ -470,7 +501,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {localNightDrivers.length > 0 && (
               <>
                 <tr className="bg-gray-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-10 p-2 font-bold text-gray-800 text-center border-2 border-gray-300">
+                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-gray-300">
                     🌙 Rutas Locales Noche / المسارات المحلية ليلاً ({localNightDrivers.length} conductores)
                   </td>
                 </tr>
@@ -482,7 +513,7 @@ const Calendar = ({ drivers, schedule, onCellClick, onImportFile, onGenerate, on
             {otherStaff.length > 0 && (
               <>
                 <tr className="bg-green-100">
-                  <td colSpan={days.length + 1} className="sticky left-0 z-10 p-2 font-bold text-gray-800 text-center border-2 border-green-300">
+                  <td colSpan={days.length + 1} className="sticky left-0 z-[5] p-2 font-bold text-gray-800 text-center border-2 border-green-300">
                     👥 Personal / الموظفون ({otherStaff.length} personas)
                   </td>
                 </tr>

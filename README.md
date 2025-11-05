@@ -33,6 +33,7 @@ Sistema de gestión integral diseñado específicamente para **ILUNION** que per
 - ✅ Generar automáticamente patrones de trabajo 4/2 (4 días trabajo, 2 descanso)
 - ✅ Asignar rutas a conductores
 - ✅ Analizar cobertura diaria y mensual
+- ✅ **NUEVO:** Gestionar solicitudes de vacaciones anuales
 - ✅ Exportar calendarios a Excel con formato profesional
 - ✅ Interfaz trilingüe (Español / العربية / English)
 
@@ -62,9 +63,11 @@ Sistema de gestión integral diseñado específicamente para **ILUNION** que per
 ### 🛣️ Gestión de Rutas
 
 - Administración de **15 rutas** (R1-R15)
+- **Rutas relacionadas**: Sistema inteligente que reconoce que rutas como R1+R1.1 las hace el mismo conductor
 - **Asignación automática** de conductores según disponibilidad
 - **Identificación inmediata** de rutas sin cobertura
 - **Alertas visuales** para turnos descubiertos
+- **Rutas principales y secundarias**: R1 (principal) + R1.1 (secundaria) = mismo conductor
 
 ### 📊 Estadísticas y Cobertura
 
@@ -73,6 +76,18 @@ Sistema de gestión integral diseñado específicamente para **ILUNION** que per
 - **Identificación visual** de días completos, parciales o sin cobertura
 - **Detalle por día**: Ver qué conductor cubre cada ruta
 - **Rutas faltantes**: Listado claro de turnos sin asignar
+
+### 🌴 Gestión de Solicitudes de Vacaciones (NUEVO)
+
+- **Crear solicitudes** de vacaciones para cualquier conductor
+- **Cálculo automático** del número de días solicitados
+- **Estados de solicitud**: Pendiente, Aprobada, Rechazada
+- **Estadísticas en tiempo real**: Total de solicitudes, pendientes, aprobadas, rechazadas
+- **Filtros avanzados**: Por estado y por año
+- **Aprobación/Rechazo** rápido con un clic
+- **Seguimiento completo**: Fecha de inicio, fin, motivo y notas
+- **Dashboard visual** con tarjetas informativas
+- **Interfaz trilingüe** completa (ES/AR/EN)
 
 ### 📤 Exportación
 
@@ -190,6 +205,42 @@ http://localhost:3000
 3. El archivo se descargará automáticamente
 4. Incluye todos los colores y una hoja de leyenda
 
+### Gestionar Solicitudes de Vacaciones 🌴
+
+1. Ve a la pestaña **"Solicitudes de Vacaciones"** en el menú superior
+2. Haz clic en **"Nuevo Pedido"** / **"طلب جديد"**
+3. Selecciona el conductor de la lista
+4. Elige las fechas de inicio y fin
+5. El sistema calculará automáticamente el número de días
+6. Añade un motivo (opcional) y notas si es necesario
+7. Haz clic en **"Enviar"**
+
+**Aprobar o Rechazar Solicitudes:**
+- ✅ Haz clic en el icono de **check verde** para aprobar
+- ❌ Haz clic en el icono de **X rojo** para rechazar
+- 🗑️ Usa el icono de papelera para eliminar
+
+**Filtrar Solicitudes:**
+- Filtra por estado: Todas, Pendientes, Aprobadas, Rechazadas
+- Filtra por año: 2024, 2025, 2026, 2027
+
+### Entender Rutas Relacionadas 🔗
+
+El sistema reconoce automáticamente que ciertas rutas están relacionadas:
+
+- **R1 + R1.1** → El mismo conductor las realiza
+- **R2 + R2.2** → El mismo conductor las realiza  
+- **R3 + R3.1** → El mismo conductor las realiza
+- **R7 + R7.1** → El mismo conductor las realiza
+
+**¿Cómo funciona?**
+1. Una ruta con decimales (R1.1) es una **ruta secundaria**
+2. Se ejecuta **después** de la ruta principal (R1)
+3. El **mismo conductor** hace ambas en el mismo día
+4. En el calendario se muestra como **R1+R1.1**
+
+**Más información:** Ver archivo `RUTAS_RELACIONADAS.md` para documentación completa
+
 ---
 
 ## 📁 Estructura del Proyecto
@@ -205,6 +256,7 @@ fleet-management/
 │   │   ├── DriverModal.jsx          # Modal para conductores
 │   │   ├── DriversList.jsx          # Lista de conductores
 │   │   ├── RoutesList.jsx           # Gestión de rutas
+│   │   ├── VacationRequests.jsx     # 🌴 Solicitudes de vacaciones (NUEVO)
 │   │   ├── Stats.jsx                # Página de estadísticas
 │   │   └── Navbar.jsx               # Barra de navegación
 │   │
@@ -215,6 +267,7 @@ fleet-management/
 │   ├── 📂 hooks/                    # React Hooks personalizados
 │   │   ├── useDrivers.jsx           # Hook para gestión de conductores
 │   │   ├── useRoutes.jsx            # Hook para gestión de rutas
+│   │   ├── useVacationRequests.js   # 🌴 Hook para vacaciones (NUEVO)
 │   │   └── useLanguage.jsx          # Hook para multiidioma
 │   │
 │   ├── 📂 i18n/                     # Internacionalización
@@ -234,6 +287,7 @@ fleet-management/
 ├── 📄 .gitignore                    # Archivos ignorados por Git
 ├── 📄 INSTALACION.md                # Guía detallada de instalación
 ├── 📄 COMANDOS_GIT.txt              # Comandos Git útiles
+├── 📄 RUTAS_RELACIONADAS.md         # 🔗 Documentación de rutas relacionadas
 └── 📄 README.md                     # Este archivo
 ```
 
@@ -340,6 +394,8 @@ Para hacer copia de seguridad:
 - [x] Exportación a Excel con colores
 - [x] Panel de cobertura diaria
 - [x] Gestión completa de conductores
+- [x] **Sistema de solicitudes de vacaciones anuales** 🌴 (Nuevo - Nov 2025)
+- [x] **Sistema de rutas relacionadas** 🔗 (R1+R1.1 = mismo conductor) (Nuevo - Nov 2025)
 - [x] Interfaz trilingüe
 - [x] Edición manual de celdas
 
@@ -376,7 +432,7 @@ Desarrollado para **ILUNION**
 
 Para soporte técnico o consultas:
 
-- 📧 Email: [tu-email@ejemplo.com]
+- 📧 Email: abojad.tasnim@yahoo.com
 - 📄 Documentación: Ver [INSTALACION.md](INSTALACION.md)
 - 🐛 Reportar bugs: [GitHub Issues]
 
