@@ -19,6 +19,10 @@ git pull origin main
 echo "📦 Installing frontend dependencies..."
 npm install
 
+# Install terser if not present
+echo "📦 Installing terser (required for build)..."
+npm install terser --save-dev
+
 # Install backend dependencies
 echo "📦 Installing backend dependencies..."
 cd server
