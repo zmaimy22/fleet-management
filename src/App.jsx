@@ -9,6 +9,7 @@ import Stats from './components/Stats';
 import CoverageStats from './components/CoverageStats';
 import CellEditModal from './components/CellEditModal';
 import VacationRequests from './components/VacationRequests';
+import RouteGroups from './components/RouteGroups';
 import { scheduleData } from './data/drivers';
 import { useRoutes } from './hooks/useRoutes';
 import { useDrivers } from './hooks/useDrivers';
@@ -415,6 +416,8 @@ function App() {
         );
       case 'vacations':
         return <VacationRequests />;
+      case 'groups':
+        return <RouteGroups drivers={drivers} routes={routeCodes} />;
       case 'drivers':
         return <DriversList />;
       case 'routes':

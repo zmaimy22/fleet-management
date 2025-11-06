@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Truck, Users, Calendar, BarChart3, Settings, CheckCircle, Palmtree, Menu, X } from 'lucide-react';
+import { Truck, Users, Calendar, BarChart3, Settings, CheckCircle, Palmtree, Menu, X, GitBranch } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage.jsx';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
@@ -10,6 +10,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
     { id: 'calendar', name: t('calendar'), icon: Calendar },
     { id: 'coverage', name: 'Cobertura', icon: CheckCircle },
     { id: 'vacations', name: t('vacationRequests'), icon: Palmtree },
+    { id: 'groups', name: 'Grupos', icon: GitBranch },
     { id: 'drivers', name: t('drivers'), icon: Users },
     { id: 'routes', name: t('routes'), icon: Truck },
     { id: 'stats', name: t('stats'), icon: BarChart3 },
