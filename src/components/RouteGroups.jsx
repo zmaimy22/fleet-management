@@ -31,7 +31,8 @@ export default function RouteGroups({ drivers, routes }) {
       name: 'Grupo Nuevo',
       routes: [],
       drivers: [],
-      pattern: 'rotation' // rotation pattern
+      patternType: 'pattern1', // pattern1 or pattern2
+      driverAssignments: {} // For pattern2: {routeCode: driverId}
     };
     setEditingGroup(newGroup);
   };
@@ -47,6 +48,15 @@ export default function RouteGroups({ drivers, routes }) {
     if (editingGroup.drivers.length < 3) {
       alert('⚠️ Selecciona exactamente 3 conductores');
       return;
+    }
+
+    // Pattern 2 validation: check driver assignments
+    if (editingGroup.patternType === 'pattern2') {
+      const assignedRoutes = Object.keys(editingGroup.driverAssignments || {});
+      if (assignedRoutes.length !== editingGroup.routes.length) {
+        alert('⚠️ Asigna un conductor principal a cada ruta');
+        return;
+      }
     }
 
     const existingIndex = groups.findIndex(g => g.id === editingGroup.id);
@@ -154,9 +164,27 @@ export default function RouteGroups({ drivers, routes }) {
               </div>
               
               <div className="pt-2 border-t">
-                <span className="text-xs text-gray-500">
-                  🔄 Rotación 4/2 - Siempre 2 trabajan, 1 descansa
-                </span>
+                <div className="flex items-center gap-2">
+                  {group.patternType === 'pattern2' ? (
+                    <span className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded font-semibold">
+                      👨‍✈️ Patrón 2: Conductor Fijo
+                    </span>
+                  ) : (
+                    <span className="text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded font-semibold">
+                      🔄 Patrón 1: Rotación
+                    </span>
+                  )}
+                </div>
+                {group.patternType === 'pattern2' && group.driverAssignments && (
+                  <div className="mt-2 text-xs text-gray-600">
+                    {Object.entries(group.driverAssignments).map(([route, driverId]) => {
+                      const driver = drivers.find(d => d.id === driverId);
+                      return driver ? (
+                        <div key={route}>• {route}: {driver.name}</div>
+                      ) : null;
+                    })}
+                  </div>
+                )}
               </div>
             </div>
           </div>
@@ -184,6 +212,54 @@ export default function RouteGroups({ drivers, routes }) {
                   className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
                   placeholder="Ejemplo: Grupo R1-R2"
                 />
+              </div>
+
+              {/* Pattern Type Selection */}
+              <div className="mb-4">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Tipo de Patrón *
+                </label>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                  <button
+                    onClick={() => setEditingGroup({ ...editingGroup, patternType: 'pattern1', driverAssignments: {} })}
+                    className={`p-4 border-2 rounded-lg text-left transition-all ${
+                      editingGroup.patternType === 'pattern1'
+                        ? 'border-blue-600 bg-blue-50'
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}
+                  >
+                    <div className="font-bold text-lg mb-2">
+                      {editingGroup.patternType === 'pattern1' ? '✅' : '⭕'} Patrón 1
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      <div>🔄 Rotación Simple</div>
+                      <div className="mt-1">• 3 conductores</div>
+                      <div>• 2 rutas cualquiera</div>
+                      <div>• Siempre 2 trabajan</div>
+                      <div>• Siempre 1 descansa</div>
+                    </div>
+                  </button>
+
+                  <button
+                    onClick={() => setEditingGroup({ ...editingGroup, patternType: 'pattern2', driverAssignments: {} })}
+                    className={`p-4 border-2 rounded-lg text-left transition-all ${
+                      editingGroup.patternType === 'pattern2'
+                        ? 'border-green-600 bg-green-50'
+                        : 'border-gray-300 hover:border-gray-400'
+                    }`}
+                  >
+                    <div className="font-bold text-lg mb-2">
+                      {editingGroup.patternType === 'pattern2' ? '✅' : '⭕'} Patrón 2
+                    </div>
+                    <div className="text-sm text-gray-600">
+                      <div>👨‍✈️ Con Conductor Fijo</div>
+                      <div className="mt-1">• 3 conductores</div>
+                      <div>• 2 rutas</div>
+                      <div>• 2 conductores fijos</div>
+                      <div>• 1 conductor backup</div>
+                    </div>
+                  </button>
+                </div>
               </div>
 
               {/* Routes Selection */}
@@ -239,16 +315,69 @@ export default function RouteGroups({ drivers, routes }) {
                 </p>
               </div>
 
+              {/* Pattern 2: Assign Primary Drivers */}
+              {editingGroup.patternType === 'pattern2' && editingGroup.routes.length > 0 && editingGroup.drivers.length === 3 && (
+                <div className="mb-6 bg-green-50 border-2 border-green-200 rounded-lg p-4">
+                  <h4 className="font-semibold text-green-900 mb-3">👨‍✈️ Asignar Conductor Principal a cada Ruta</h4>
+                  <div className="space-y-3">
+                    {editingGroup.routes.map(routeCode => (
+                      <div key={routeCode} className="bg-white rounded-lg p-3 border border-green-200">
+                        <div className="font-medium text-gray-700 mb-2">Ruta {routeCode}:</div>
+                        <select
+                          value={editingGroup.driverAssignments[routeCode] || ''}
+                          onChange={(e) => {
+                            setEditingGroup({
+                              ...editingGroup,
+                              driverAssignments: {
+                                ...editingGroup.driverAssignments,
+                                [routeCode]: parseInt(e.target.value)
+                              }
+                            });
+                          }}
+                          className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                        >
+                          <option value="">Selecciona conductor principal...</option>
+                          {editingGroup.drivers.map(driverId => {
+                            const driver = drivers.find(d => d.id === driverId);
+                            return driver ? (
+                              <option key={driverId} value={driverId}>
+                                {driver.name}
+                              </option>
+                            ) : null;
+                          })}
+                        </select>
+                      </div>
+                    ))}
+                  </div>
+                  <p className="text-xs text-green-700 mt-3">
+                    ℹ️ El conductor restante será el backup automático
+                  </p>
+                </div>
+              )}
+
               {/* Pattern Info */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                <h4 className="font-semibold text-blue-900 mb-2">🔄 Patrón de Rotación 4/2</h4>
-                <ul className="text-sm text-blue-800 space-y-1">
-                  <li>• Siempre 2 conductores trabajan (cubren las rutas)</li>
-                  <li>• Siempre 1 conductor descansa (2 días consecutivos)</li>
-                  <li>• Los 3 conductores rotan automáticamente</li>
-                  <li>• Se respetan las vacaciones aprobadas</li>
-                </ul>
-              </div>
+              {editingGroup.patternType === 'pattern1' ? (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+                  <h4 className="font-semibold text-blue-900 mb-2">🔄 Patrón 1: Rotación Simple</h4>
+                  <ul className="text-sm text-blue-800 space-y-1">
+                    <li>• Siempre 2 conductores trabajan (cubren las rutas)</li>
+                    <li>• Siempre 1 conductor descansa (2 días consecutivos)</li>
+                    <li>• Los 3 conductores rotan automáticamente</li>
+                    <li>• Se respetan las vacaciones aprobadas</li>
+                  </ul>
+                </div>
+              ) : (
+                <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-4">
+                  <h4 className="font-semibold text-green-900 mb-2">👨‍✈️ Patrón 2: Con Conductor Fijo</h4>
+                  <ul className="text-sm text-green-800 space-y-1">
+                    <li>• Cada ruta tiene un conductor principal fijo</li>
+                    <li>• El conductor principal trabaja 4 días y descansa 2</li>
+                    <li>• El conductor backup cubre en días de descanso</li>
+                    <li>• Siempre 2 rutas cubiertas, 1 conductor descansa</li>
+                    <li>• Se respetan las vacaciones aprobadas</li>
+                  </ul>
+                </div>
+              )}
 
               {/* Buttons */}
               <div className="flex justify-end gap-3">
