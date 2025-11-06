@@ -19,6 +19,7 @@ import { useRoutes } from './hooks/useRoutes';
 import { useDrivers } from './hooks/useDrivers';
 
 function AdminDashboard() {
+  const { logout, user } = useAuth();
   const { routeCodes } = useRoutes();
   const { drivers } = useDrivers();
   const [activeTab, setActiveTab] = useState('calendar');
@@ -437,7 +438,12 @@ function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
-      <Navbar activeTab={activeTab} setActiveTab={setActiveTab} />
+      <Navbar 
+        activeTab={activeTab} 
+        setActiveTab={setActiveTab}
+        onLogout={logout}
+        userName={user?.name}
+      />
       
       <main className="w-full px-4 py-6">
         <div className="overflow-x-auto">
