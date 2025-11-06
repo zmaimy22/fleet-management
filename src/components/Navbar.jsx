@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Truck, Users, Calendar, BarChart3, Settings, CheckCircle, Palmtree, Menu, X, GitBranch } from 'lucide-react';
+import { Truck, Users, Calendar, BarChart3, Settings, CheckCircle, Palmtree, Menu, X, GitBranch, UserCog, LogOut } from 'lucide-react';
 import { useLanguage } from '../hooks/useLanguage.jsx';
+import { useAuth } from '../contexts/AuthContext';
 
 const Navbar = ({ activeTab, setActiveTab }) => {
   const { t } = useLanguage();
+  const { logout, user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   
   const tabs = [
@@ -11,6 +13,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
     { id: 'coverage', name: 'Cobertura', icon: CheckCircle },
     { id: 'vacations', name: t('vacationRequests'), icon: Palmtree },
     { id: 'groups', name: 'Grupos', icon: GitBranch },
+    { id: 'users', name: 'Usuarios', icon: UserCog },
     { id: 'drivers', name: t('drivers'), icon: Users },
     { id: 'routes', name: t('routes'), icon: Truck },
     { id: 'stats', name: t('stats'), icon: BarChart3 },
@@ -37,7 +40,7 @@ const Navbar = ({ activeTab, setActiveTab }) => {
           </div>
           
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex gap-2">
+          <div className="hidden lg:flex gap-2 items-center">
             {tabs.map(tab => {
               const Icon = tab.icon;
               return (
@@ -55,6 +58,18 @@ const Navbar = ({ activeTab, setActiveTab }) => {
                 </button>
               );
             })}
+            
+            {/* Logout Button */}
+            <div className="ml-2 pl-2 border-l border-white/30">
+              <button
+                onClick={logout}
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white hover:bg-white/20 transition"
+                title="Cerrar Sesión"
+              >
+                <LogOut size={18} />
+                <span className="font-medium text-sm hidden xl:inline">{user?.name}</span>
+              </button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -88,6 +103,15 @@ const Navbar = ({ activeTab, setActiveTab }) => {
                   </button>
                 );
               })}
+              
+              {/* Mobile Logout */}
+              <button
+                onClick={logout}
+                className="flex items-center gap-3 px-4 py-3 rounded-lg bg-red-500/20 text-white hover:bg-red-500/30 transition border-t border-white/20 mt-2"
+              >
+                <LogOut size={20} />
+                <span className="font-medium">Cerrar Sesión ({user?.name})</span>
+              </button>
             </div>
           </div>
         )}

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import Papa from 'papaparse';
 import * as XLSX from 'xlsx';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import Login from './components/Login';
+import DriverDashboard from './components/DriverDashboard';
+import UserManagement from './components/UserManagement';
 import Navbar from './components/Navbar';
 import Calendar from './components/Calendar';
 import DriversList from './components/DriversList';
@@ -14,7 +18,7 @@ import { scheduleData } from './data/drivers';
 import { useRoutes } from './hooks/useRoutes';
 import { useDrivers } from './hooks/useDrivers';
 
-function App() {
+function AdminDashboard() {
   const { routeCodes } = useRoutes();
   const { drivers } = useDrivers();
   const [activeTab, setActiveTab] = useState('calendar');
@@ -418,6 +422,8 @@ function App() {
         return <VacationRequests />;
       case 'groups':
         return <RouteGroups drivers={drivers} routes={routeCodes} />;
+      case 'users':
+        return <UserManagement />;
       case 'drivers':
         return <DriversList />;
       case 'routes':
@@ -458,6 +464,39 @@ function App() {
       </footer>
     </div>
   );
+}
+
+function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}
+
+function AppContent() {
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
+        <div className="text-white text-xl">Cargando...</div>
+      </div>
+    );
+  }
+
+  // Not logged in - show login page
+  if (!user) {
+    return <Login />;
+  }
+
+  // Driver role - show driver dashboard
+  if (user.role === 'driver') {
+    return <DriverDashboard />;
+  }
+
+  // Admin role - show full system
+  return <AdminDashboard />;
 }
 
 export default App;
